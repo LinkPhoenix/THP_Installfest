@@ -156,6 +156,51 @@ check() {
     fi
 }
 
+menu() {
+    clear
+     echo "#######################################"
+     echo "################# menu ################"
+     echo "#######################################"
+     echo "     1: Dependencies installation"
+     echo "     2: RVM installation"
+     echo "     3: Ruby version 2.5.1 installation"
+     echo "     4: Rails version 2.5.3 installation"
+     echo "     5: Heroku Installation"
+     echo "     6: Gem Installation"
+     echo "     7: PG's gem installation"
+     echo "     q: quit"
+     echo "#######################################"
+     echo "                             "
+     read -p "Enter your choice: " choice
+     case "$choice" in
+     	1) install_dependencies
+            menu
+     		;;
+     	2) install_RVM
+            menu
+     		;;
+     	3) install_Ruby
+            menu
+     	    ;;
+        4) install_Rails
+            menu
+            ;;
+        5) install_Heroku
+            menu
+            ;;
+        6) gem_installation
+            menu
+            ;;
+        7) pg_installation
+            check
+            menu
+            ;;
+    "q"|"q") echo "See you next time ..."
+            ;;
+    *) echo "Bad choice"
+    esac
+}
+
 main () {
     setup_color
 
@@ -176,14 +221,8 @@ main () {
  |_____|_| |_|\__\___|_|_|___/\___|_|  \__|                                                   
                                              ${RESET}
  ${RED}This script allows for a step-by-step installation of all the Inteliseft of The Hacking Progress, the authors will not be in any way responsible for what you made of script${RESET}" 
-    install_dependencies
-    install_RVM
-    install_Ruby
-    install_Rails
-    install_Heroku
-    gem_installation
-    pg_installation
-    check
+    do_you_want_continue
+    menu
 }
 
 main
