@@ -1,26 +1,26 @@
 # InstallFest for The Hacking Project
 
-# Description
+## Description
 
 Scripting aims to automate the installation repairing a working environment for French training The Hacking Project
 
-# How to use
+## Getting Started
 
-## Prerequisites
+### Prerequisites
 
 - A Unix-like operating system: Linux
-- `curl` or `get`should be installed
-- The option "Run as a login sheel" must be activated in your terminal's preferences
+- `curl` or `wget`should be installed
+- The option "Run as a login sheel" must be activated in your terminal's preferences for the installation of RVM
 
-## With curl
+### Installation via curl
 
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/LinkPhoenix/THP_Installfest/master/Installfest_THP.sh)"
 
-## With wget
+### Installation via wget
 
     bash -c "$(https://raw.githubusercontent.com/LinkPhoenix/THP_Installfest/master/Installfest_THP.sh -O -)"
 
-## Manual installation
+### Manual installation
 
 ##### 1. Clone the repository:
 
@@ -34,7 +34,7 @@ Scripting aims to automate the installation repairing a working environment for 
 
     bash THP_Installfest.sh
 
-# Improvements
+## Improvements
 
 - [ ] Impossible launch if you are no Linux user
 - [ ] Beautify menu
