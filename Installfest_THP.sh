@@ -1,4 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
+#https://blog.dorian-depriester.fr/linux/rediriger-les-messages-dun-script-dans-des-fichiers-log
+# exec 3>&1 4>&2
+# trap 'exec 2>&4 1>&3' 0 1 2 3
+# exec 1>log.out 2>&1
 
 setup_color() {
     # Only use colors if connected to a terminal
@@ -45,7 +49,7 @@ ask_install_gem() {
     done
 }
 
-do_you_want_continue() {
+press_any_key_to_continue() {
     read -n 1 -s -r -p "${GREEN} Press any key to continue ${RESET}"
 }
 
@@ -63,6 +67,7 @@ ask() {
 }
 
 header() {
+    clear
     echo "${YELLOW}#######################################################${RESET}"
     echo ""
     echo "${GREEN}  $1 ${RESET}"
@@ -73,56 +78,66 @@ header() {
 install_dependencies() {
     header "Dependencies installation for Ruby and RVM"
 
-    do_you_want_continue
+    press_any_key_to_continue
 
     sudo apt-get install autoconf automake bison build-essential curl git-core libapr1 libaprutil1 libc6-dev libltdl-dev libsqlite3-0 libsqlite3-dev libssl-dev libtool libxml2-dev libxslt-dev libxslt1-dev libyaml-dev ncurses-dev nodejs openssl sqlite3 zlib1g zlib1g-dev libreadline7
+
+    press_any_key_to_continue
 }
 
 install_RVM() {
     header "RVM installation"
 
-    do_you_want_continue
+    press_any_key_to_continue
 
     sudo apt install gnupg
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
     curl -L get.rvm.io | bash -s stable
+
+    press_any_key_to_continue
 }
 
 install_Ruby() {
     header "Ruby installation version 2.5.1 with RVM"
 
-    do_you_want_continue
+    press_any_key_to_continue
 
     sudo apt-get install automake
     rvm install 2.5.1
     rvm use 2.5.1
     rvm --default use 2.5.1
+
+    press_any_key_to_continue
 }
 
 install_Rails() {
     header "Rails installation version 5.2.3"
 
-    do_you_want_continue
+    press_any_key_to_continue
 
     gem install rails -v 5.2.3
+
+    press_any_key_to_continue
 }
 
 install_Heroku() {
     header "Heroku installation"
 
-    do_you_want_continue
+    press_any_key_to_continue
     curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+    press_any_key_to_continue
 }
 
-gem_installation() {
+install_all_gem() {
     header "Gem installation"
 
     gem_array=(rspec rubocop pry dotenv twitter nokogiri launchy watir selenium-webdriver json colorize sinatra shotgun csv rack sqlite3 faker)
 
     for gem in "${gem_array[@]}"; do ask_install_gem; done
+    press_any_key_to_continue
 }
 
-pg_installation() {
+install_gem_pg() {
     header "PG's gem installation"
 
     if [[ -r /etc/os-release ]]; then
@@ -145,6 +160,8 @@ pg_installation() {
     sudo apt upgrade
     sudo apt install postgresql-common
     sudo apt install postgresql-9.5 libpq-dev
+
+    press_any_key_to_continue
 }
 
 check() {
@@ -165,64 +182,175 @@ check() {
     fi
 }
 
-menu() {
-    clear
-    echo "#######################################"
-    echo "################# menu ################"
-    echo "#######################################"
-    echo "     1: Dependencies installation"
-    echo "     2: RVM installation"
-    echo "     3: Ruby version 2.5.1 installation"
-    echo "     4: Rails version 2.5.3 installation"
-    echo "     5: Heroku Installation"
-    echo "     6: Gem Installation"
-    echo "     7: PG's gem installation"
-    echo "     q: quit"
-    echo "#######################################"
-    echo "                             "
-    read -p "Enter your choice: " choice
-    case "$choice" in
-    1)
-        install_dependencies
-        menu
-        ;;
-    2)
-        install_RVM
-        menu
-        ;;
-    3)
-        install_Ruby
-        menu
-        ;;
-    4)
-        install_Rails
-        menu
-        ;;
-    5)
-        install_Heroku
-        menu
-        ;;
-    6)
-        gem_installation
-        menu
-        ;;
-    7)
-        pg_installation
-        check
-        menu
-        ;;
-    "q" | "q")
-        echo "See you next time ..."
-        ;;
-    *) echo "Bad choice" ;;
-    esac
+install_oh_my_zsh() {
+    header "OH MY ZSH installation"
+
+    if hash zsh 2>/dev/null; then
+        return
+    else
+        echo "Zsh has not detected on your system"
+        echo "I will install it with sudo"
+        press_any_key_to_continue
+        sudo apt install zsh
+    fi
+    if hash curl 2>/dev/null; then
+        sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    elif hash wget 2>/dev/null; then
+        sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+    else
+        echo "CURL and WGET has not detected on your system"
+        echo "I will install CURL with sudo"
+        echo "before install Oh-My-Zsh"
+        press_any_key_to_continue
+        sudo apt install curl
+        sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    fi
+    press_any_key_to_continue
 }
 
-display_center(){
-    columns="$(tput cols)"
-    while IFS= read -r line; do
-        printf "%*s\n" $(( (${#line} + columns) / 2)) "$line"
-    done < "$1"
+install_vim() {
+    header "VIM installation"
+
+    if hash vim 2>/dev/null; then
+        echo "Vim is already install"
+        press_any_key_to_continue
+    else
+        echo "Vim has not detected on your system"
+        echo "I will install it with sudo"
+        press_any_key_to_continue
+        sudo apt install vim
+    fi
+}
+
+Install_vscode() {
+    header "Visual Code Installation"
+
+    if hash code 2>/dev/null; then
+        echo "Visual Code is already install"
+        press_any_key_to_continue
+    else
+        echo "Visual code has not detected on your system"
+        echo "I will install it with snap"
+        press_any_key_to_continue
+        if hash snap 2>/dev/null; then
+            echo "SNAP has not detected on your system"
+            echo "I need it for install Visual Code"
+            echo "I will install it with sudo"
+            press_any_key_to_continue
+            sudo apt update
+            sudo apt install snapd
+        fi
+        snap install code --classic
+    fi
+}
+
+# menu_old() {
+#     clear
+#     echo "#######################################"
+#     echo "################# menu ################"
+#     echo "#######################################"
+#     echo "     1: Dependencies installation"
+#     echo "     2: RVM installation"
+#     echo "     3: Ruby version 2.5.1 installation"
+#     echo "     4: Rails version 2.5.3 installation"
+#     echo "     5: Heroku Installation"
+#     echo "     6: Gem Installation"
+#     echo "     7: PG's gem installation"
+#     echo "     q: quit"
+#     echo "#######################################"
+#     echo "                             "
+#     read -p "Enter your choice: " choice
+#     case "$choice" in
+#     1)
+#         install_dependencies
+#         menu
+#         ;;
+#     2)
+#         install_RVM
+#         menu
+#         ;;
+#     3)
+#         install_Ruby
+#         menu
+#         ;;
+#     4)
+#         install_Rails
+#         menu
+#         ;;
+#     5)
+#         install_Heroku
+#         menu
+#         ;;
+#     6)
+#         install_all_gem
+#         menu
+#         ;;
+#     7)
+#         install_gem_pg
+#         check
+#         menu
+#         ;;
+#     "q" | "q")
+#         echo "See you next time ..."
+#         ;;
+#     *) echo "Bad choice" ;;
+#     esac
+# }
+
+menu_whiptail() {
+    while [ 1 ]; do
+        CHOICE=$(
+            whiptail --title "Installfest - The Hacking Project" --menu "Make your choice" 16 100 9 \
+                "1)" "Depencies installation" \
+                "2)" "RVM installation" \
+                "3)" "Ruby version 2.5.1 installation" \
+                "4)" "Rails version 2.5.3 installation" \
+                "5)" "Heroku Installation" \
+                "6)" "Gem Installation" \
+                "7)" "PG's gem installation" \
+                "8)" "Install Oh My ZSH" \
+                "9)" "Install Visual Code" \
+                "10)" "End script" 3>&2 2>&1 1>&3
+        )
+
+        case $CHOICE in
+        "1)")
+            install_dependencies
+            ;;
+        "2)")
+            install_RVM
+            ;;
+
+        "3)")
+            install_Ruby
+            ;;
+        "4)")
+            install_Rails
+            ;;
+        "5)")
+            install_Heroku
+            ;;
+        "6)")
+            install_all_gem
+            ;;
+        "7)")
+            install_gem_pg
+            check
+            ;;
+        "8)")
+            install_oh_my_zsh
+            ;;
+        "9)")
+            Install_vscode
+            ;;
+        "10)")
+            clear
+            exit
+            ;;
+        esac
+        whiptail --msgbox "Choice $CHOICE is over" 7 25
+    done
+    exit
 }
 
 main() {
@@ -245,9 +373,9 @@ main() {
  |_____|_| |_|___/\__\__,_|_|_|_| \___||___/\__|                                              
                                                                                               
 ${RESET}"
-    do_you_want_continue
+    press_any_key_to_continue
 
-    if (whiptail --title "WARNING" --yesno "This script allows for a step-by-step installation of all the Inteliseft of The Hacking Progress, the authors will not be in any way responsible for what you made of script.
+    if (whiptail --title "WARNING" --yesno "This script allows for a step-by-step installation of all the Inteliseft of The Hacking Project, the authors will not be in any way responsible for what you made of script.
     
 Even if the script was done with love, the author LinkPhoenix of this one is in no way responsible for what you will do in it and is released from all responsibility on the results of this one.
 ------------------------------------------------------------------------------------------------
@@ -259,9 +387,15 @@ By selecting YES you accept it is conditions otherwise please select NO!" 15 100
         exit
     fi
 
-    echo "${RED}WARNING
-This script allows for a step-by-step installation of all the Inteliseft of The Hacking Progress, the authors will not be in any way responsible for what you made of script${RESET}"
-    menu
+    if [[ "$OSTYPE" == "linux-gnu" ]]; then
+        menu_whiptail
+    else
+        whiptail --title "Not a linux operating system" --msgbox "This script is only compatible with a linux distribution (linux-gnu)
+    
+            Max OSx, Windows, MinGW... are not supported
+    
+                The script will not execute" 12 78
+    fi
 }
 
 main

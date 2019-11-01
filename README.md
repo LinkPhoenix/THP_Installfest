@@ -36,18 +36,18 @@ Scripting aims to automate the installation repairing a working environment for 
 
 ## Improvements
 
-- [ ] Impossible launch if you are no Linux user
-- [ ] Beautify menu
+- [x] Impossible launch if you are no Linux user
+- [x] Beautify menu
 - [ ] Full reinstall all
 - [ ] Install All
 - [ ] Check if all is ok
 - [ ] Repair
-- [ ] Better Warning
+- [x] Better Warning
 - [ ] Logs
-- [ ] Install Oh My ZSH
+- [x] Install Oh My ZSH
 - [ ] Ask which IDE you want (Atom, VsCode, Sublime...)
 - [ ] Ask install Git
 - [ ] Function for Ask random Question
-- [ ] Ask install VIM
-- [ ] Ask more information about THP
+- [x] Install VIM
+- [ ] More information about THP
 - [ ] Check if you have SSH Key
