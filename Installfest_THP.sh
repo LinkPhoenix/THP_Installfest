@@ -356,6 +356,8 @@ menu_whiptail() {
 main() {
     setup_color
 
+    notify-send 'InstallFest' 'His script was written by LinkPhoenix'
+
     echo "${GREEN}
   _______ _            _    _            _    _               _____           _           _   
  |__   __| |          | |  | |          | |  (_)             |  __ \         (_)         | |  

@@ -46,8 +46,11 @@ Scripting aims to automate the installation repairing a working environment for 
 - [ ] Logs
 - [x] Install Oh My ZSH
 - [ ] Ask which IDE you want (Atom, VsCode, Sublime...)
-- [ ] Ask install Git
+- [ ] Install Git
 - [ ] Function for Ask random Question
 - [x] Install VIM
 - [ ] More information about THP
 - [ ] Check if you have SSH Key
+- [ ] Install TERMINATOR
+- [ ] Config Alias and/or config Plugins OH MY ZSH
+- [ ] Send notify-send in all step 
