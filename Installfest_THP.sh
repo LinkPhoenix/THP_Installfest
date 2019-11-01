@@ -1,37 +1,46 @@
 #!/usr/bin/env bash
 
 setup_color() {
-	# Only use colors if connected to a terminal
-	if [ -t 1 ]; then
-		RED=$(printf '\033[31m')
-		GREEN=$(printf '\033[32m')
-		YELLOW=$(printf '\033[33m')
-		BLUE=$(printf '\033[34m')
-		BOLD=$(printf '\033[1m')
-		RESET=$(printf '\033[m')
-	else
-		RED=""
-		GREEN=""
-		YELLOW=""
-		BLUE=""
-		BOLD=""
-		RESET=""
-	fi
+    # Only use colors if connected to a terminal
+    if [ -t 1 ]; then
+        RED=$(printf '\033[31m')
+        GREEN=$(printf '\033[32m')
+        YELLOW=$(printf '\033[33m')
+        BLUE=$(printf '\033[34m')
+        BOLD=$(printf '\033[1m')
+        RESET=$(printf '\033[m')
+    else
+        RED=""
+        GREEN=""
+        YELLOW=""
+        BLUE=""
+        BOLD=""
+        RESET=""
+    fi
 }
 
 ask_install_gem() {
     set -- $(locale LC_MESSAGES)
-    yesptrn="$1"; noptrn="$2"; yesword="$3"; noword="$4"
+    yesptrn="$1"
+    noptrn="$2"
+    yesword="$3"
+    noword="$4"
     while true; do
 
         echo ""
         read -p "${YELLOW} Install the Gem "$gem" ? [${yesword}/${noword}]? ${RESET}" yn
         case $yn in
-            ${yesptrn##^} ) gem install "$gem"; break;;
-            ${yesword##^} ) gem install "$gem"; break;;
-            ${noptrn##^} ) break;;
-            ${noword##^} ) break;;
-            * ) echo "Answer ${yesword} / ${noword}.";;
+        ${yesptrn##^})
+            gem install "$gem"
+            break
+            ;;
+        ${yesword##^})
+            gem install "$gem"
+            break
+            ;;
+        ${noptrn##^}) break ;;
+        ${noword##^}) break ;;
+        *) echo "Answer ${yesword} / ${noword}." ;;
         esac
     done
 }
@@ -40,16 +49,16 @@ do_you_want_continue() {
     read -n 1 -s -r -p "${GREEN} Press any key to continue ${RESET}"
 }
 
-ask () {
+ask() {
     # call with a prompt string or use a default
     read -r -p "${1:-Are you sure? [y/N]} " response
     case "$response" in
-        [yY][eE][sS]|[yY]) 
-            $1
-            ;;
-        *)
-            continue
-            ;;
+    [yY][eE][sS] | [yY])
+        $1
+        ;;
+    *)
+        continue
+        ;;
     esac
 }
 
@@ -117,9 +126,9 @@ pg_installation() {
     header "PG's gem installation"
 
     if [[ -r /etc/os-release ]]; then
-    . /etc/os-release
-        if [[ $ID = ubuntu ]]; then
-            read _ UBUNTU_VERSION_NAME <<< "$VERSION"
+        . /etc/os-release
+        if [[ $ID == ubuntu ]]; then
+            read _ UBUNTU_VERSION_NAME <<<"$VERSION"
             echo "Running Ubuntu $UBUNTU_VERSION_NAME"
             sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_VERION_NAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
             echo "I add 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_VERSION_NAME-pgdg main' in /etc/apt/sources.list.d/pgdg.list"
@@ -158,70 +167,100 @@ check() {
 
 menu() {
     clear
-     echo "#######################################"
-     echo "################# menu ################"
-     echo "#######################################"
-     echo "     1: Dependencies installation"
-     echo "     2: RVM installation"
-     echo "     3: Ruby version 2.5.1 installation"
-     echo "     4: Rails version 2.5.3 installation"
-     echo "     5: Heroku Installation"
-     echo "     6: Gem Installation"
-     echo "     7: PG's gem installation"
-     echo "     q: quit"
-     echo "#######################################"
-     echo "                             "
-     read -p "Enter your choice: " choice
-     case "$choice" in
-     	1) install_dependencies
-            menu
-     		;;
-     	2) install_RVM
-            menu
-     		;;
-     	3) install_Ruby
-            menu
-     	    ;;
-        4) install_Rails
-            menu
-            ;;
-        5) install_Heroku
-            menu
-            ;;
-        6) gem_installation
-            menu
-            ;;
-        7) pg_installation
-            check
-            menu
-            ;;
-    "q"|"q") echo "See you next time ..."
-            ;;
-    *) echo "Bad choice"
+    echo "#######################################"
+    echo "################# menu ################"
+    echo "#######################################"
+    echo "     1: Dependencies installation"
+    echo "     2: RVM installation"
+    echo "     3: Ruby version 2.5.1 installation"
+    echo "     4: Rails version 2.5.3 installation"
+    echo "     5: Heroku Installation"
+    echo "     6: Gem Installation"
+    echo "     7: PG's gem installation"
+    echo "     q: quit"
+    echo "#######################################"
+    echo "                             "
+    read -p "Enter your choice: " choice
+    case "$choice" in
+    1)
+        install_dependencies
+        menu
+        ;;
+    2)
+        install_RVM
+        menu
+        ;;
+    3)
+        install_Ruby
+        menu
+        ;;
+    4)
+        install_Rails
+        menu
+        ;;
+    5)
+        install_Heroku
+        menu
+        ;;
+    6)
+        gem_installation
+        menu
+        ;;
+    7)
+        pg_installation
+        check
+        menu
+        ;;
+    "q" | "q")
+        echo "See you next time ..."
+        ;;
+    *) echo "Bad choice" ;;
     esac
 }
 
-main () {
+display_center(){
+    columns="$(tput cols)"
+    while IFS= read -r line; do
+        printf "%*s\n" $(( (${#line} + columns) / 2)) "$line"
+    done < "$1"
+}
+
+main() {
     setup_color
 
     echo "${GREEN}
   _______ _            _    _            _    _               _____           _           _   
  |__   __| |          | |  | |          | |  (_)             |  __ \         (_)         | |  
     | |  | |__   ___  | |__| | __ _  ___| | ___ _ __   __ _  | |__) | __ ___  _  ___  ___| |_ 
-    | |  | '_ \ / _ \ |  __  |/ _' |/ __| |/ / | '_ \ / _' | |  ___/ '__/ _ \| |/ _ \/ __| __|
+    | |  |  _ \ / _ \ |  __  |/ _  |/ __| |/ / |  _ \ / _  | |  ___/  __/ _ \| |/ _ \/ __| __|
     | |  | | | |  __/ | |  | | (_| | (__|   <| | | | | (_| | | |   | | | (_) | |  __/ (__| |_ 
     |_|  |_| |_|\___| |_|  |_|\__,_|\___|_|\_\_|_| |_|\__, | |_|   |_|  \___/| |\___|\___|\__|
                                                        __/ |                _/ |              
                                                       |___/                |__/               
-  _____       _       _ _           __ _                                                      
- |_   _|     | |     | (_)         / _| |                                                     
-   | |  _ __ | |_ ___| |_ ___  ___| |_| |_                                                    
-   | | | '_ \| __/ _ \ | / __|/ _ \  _| __|                                                   
-  _| |_| | | | ||  __/ | \__ \  __/ | | |_                                                    
- |_____|_| |_|\__\___|_|_|___/\___|_|  \__|                                                   
-                                             ${RESET}
- ${RED}This script allows for a step-by-step installation of all the Inteliseft of The Hacking Progress, the authors will not be in any way responsible for what you made of script${RESET}" 
+  _____           _        _ _  __          _                                                 
+ |_   _|         | |      | | |/ _|        | |                                                
+   | |  _ __  ___| |_ __ _| | | |_ ___  ___| |_                                               
+   | | |  _ \/ __| __/ _  | | |  _/ _ \/ __| __|                                              
+  _| |_| | | \__ \ || (_| | | | ||  __/\__ \ |_                                               
+ |_____|_| |_|___/\__\__,_|_|_|_| \___||___/\__|                                              
+                                                                                              
+${RESET}"
     do_you_want_continue
+
+    if (whiptail --title "WARNING" --yesno "This script allows for a step-by-step installation of all the Inteliseft of The Hacking Progress, the authors will not be in any way responsible for what you made of script.
+    
+Even if the script was done with love, the author LinkPhoenix of this one is in no way responsible for what you will do in it and is released from all responsibility on the results of this one.
+------------------------------------------------------------------------------------------------
+
+By selecting YES you accept it is conditions otherwise please select NO!" 15 100); then
+        echo "User selected Yes, exit status was $?."
+    else
+        echo "User selected No, exit status was $?."
+        exit
+    fi
+
+    echo "${RED}WARNING
+This script allows for a step-by-step installation of all the Inteliseft of The Hacking Progress, the authors will not be in any way responsible for what you made of script${RESET}"
     menu
 }
 
