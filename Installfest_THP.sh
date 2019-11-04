@@ -86,12 +86,34 @@ install_RVM() {
     press_any_key_to_continue
 }
 
+check_rvm_as_function() {
+    #https://stackoverflow.com/a/19954212/12317483
+    # Load RVM into a shell session *as a function*
+    # Loading RVM *as a function* is mandatory
+    # so that we can use 'rvm use <specific version>'
+    echo "I will try to add RVM as Source"
+    if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+      # First try to load from a user install
+      source "$HOME/.rvm/scripts/rvm"
+      echo "using user install $HOME/.rvm/scripts/rvm"
+    elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+      # Then try to load from a root install
+      source "/usr/local/rvm/scripts/rvm"
+      echo "using root install /usr/local/rvm/scripts/rvm"
+    else
+      echo "ERROR: An RVM installation was not found.\n"
+    fi
+}
+
 install_Ruby() {
     header "Ruby installation version 2.5.1 with RVM"
 
     press_any_key_to_continue
 
     sudo apt-get install automake
+
+    check_rvm_as_function
+    
     rvm install 2.5.1
     rvm use 2.5.1
     rvm --default use 2.5.1
