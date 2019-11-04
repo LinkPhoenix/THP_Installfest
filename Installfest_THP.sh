@@ -145,8 +145,8 @@ install_gem_pg() {
         if [[ $ID == ubuntu ]]; then
             read _ UBUNTU_VERSION_NAME <<<"$VERSION"
             echo "Running Ubuntu $UBUNTU_VERSION_NAME"
-            sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_VERION_NAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
-            echo "I add 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_VERSION_NAME-pgdg main' in /etc/apt/sources.list.d/pgdg.list"
+            sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODE_NAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
+            echo "I add 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODE_NAME-pgdg main' in /etc/apt/sources.list.d/pgdg.list"
         else
             echo "Not running an Ubuntu distribution. ID=$ID, VERSION=$VERSION"
             sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
