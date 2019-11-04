@@ -201,7 +201,7 @@ check_ror_version() {
     ruby_version=$(ruby -v)
     rails_version=$(rails -v)
     echo ${ruby_version}
-    if [ $ruby_version = "ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]" ]; then
+    if [ "$ruby_version" == "ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]" ]; then
         echo "${GREEN} you have the right version of Ruby for The Hacking Project ${RESET}"
         press_any_key_to_continue
     else
@@ -210,7 +210,7 @@ check_ror_version() {
     fi
 
     echo ${rails_version}
-    if [ $rails_version = "Rails 5.2.3" ]; then
+    if [ "$rails_version" == "Rails 5.2.3" ]; then
         echo "${GREEN} you have the right version of Rails for The Hacking Project ${RESET}"
         press_any_key_to_continue
     else
@@ -218,8 +218,8 @@ check_ror_version() {
         press_any_key_to_continue
     fi
 
-    if [ $ruby_version = "ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]" ] || [ $rails_version = "Rails 5.2.3" ]; then
-        echo "You have the right versions of Ruby and Rails for The Hacking Project"
+    if [ "$ruby_version" == "ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]" ] || [ "$rails_version" == "Rails 5.2.3" ]; then
+        echo "You have the right Ruby and Rails version for The Hacking Project"
         press_any_key_to_continue
     else
         echo "Something is wrong"
