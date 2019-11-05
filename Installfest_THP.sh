@@ -68,21 +68,24 @@ install_RVM() {
     press_any_key_to_continue
 
     if hash gpg 2>/dev/null; then
-        echo "GPG is detected on your system"
-        echo "I Will install RVM"
+        echo "${YELLOW}GPG is detected on your system${RESET}"
+        echo "${YELLOW}I Will install RVM${RESET}"
         press_any_key_to_continue
     else
-        echo "GPG is not detected in your system"
-        echo "I need it for install RVM"
-        echo "I will install it with sudo"
+        echo "${RED}GPG is not detected in your system${RESET}"
+        echo "${YELLOW}I need it for install RVM${RESET}"
+        echo "${YELLOW}I will install it with sudo${RESET}"
+        echo ""
         press_any_key_to_continue
         sudo apt install gnupg
-        echo "Now I will install RVM"
+        echo "${YELLOW}Now I will install RVM${RESET}"
         press_any_key_to_continue
     fi
+    echo "${YELLOW}Install GPG keys${RESET}"
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+    echo "${YELLOW}Install RVM with CURL${RESET}"
     curl -L get.rvm.io | bash -s stable
-
+    echo "${GREEN}RVM is installed${RESET}"
     press_any_key_to_continue
 }
 
@@ -91,17 +94,17 @@ check_rvm_as_function() {
     # Load RVM into a shell session *as a function*
     # Loading RVM *as a function* is mandatory
     # so that we can use 'rvm use <specific version>'
-    echo "I will try to add RVM as Source"
+    echo "${YELLOW}I will try to add RVM as Source${RESET}"
     if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
       # First try to load from a user install
       source "$HOME/.rvm/scripts/rvm"
-      echo "using user install $HOME/.rvm/scripts/rvm"
+      echo "${GREEN}using user install $HOME/.rvm/scripts/rvm${RESET}"
     elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
       # Then try to load from a root install
       source "/usr/local/rvm/scripts/rvm"
-      echo "using root install /usr/local/rvm/scripts/rvm"
+      echo "${GREEN}using root install /usr/local/rvm/scripts/rvm${RESET}"
     else
-      echo "ERROR: An RVM installation was not found.\n"
+      echo "${RED}ERROR: An RVM installation was not found.\n${RESET}"
     fi
 }
 
@@ -113,7 +116,7 @@ install_Ruby() {
     sudo apt-get install automake
 
     check_rvm_as_function
-    
+
     rvm install 2.5.1
     rvm use 2.5.1
     rvm --default use 2.5.1
@@ -136,8 +139,10 @@ install_Heroku() {
 
     press_any_key_to_continue
 
-    echo "I start install of HEROKU with CURL"
+    echo "${YELLOW}I start install of HEROKU with CURL${RESET}"
+    press_any_key_to_continue
     curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+    echo "${GREEN}Heroku is Installed${RESET}"
 
     press_any_key_to_continue
 }
@@ -220,31 +225,44 @@ install_gem_pg() {
 }
 
 check_ror_version() {
+    header "Check Ruby and Rails versions"
+
     ruby_version=$(ruby -v)
     rails_version=$(rails -v)
     echo ${ruby_version}
     if [ "$ruby_version" == "ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]" ]; then
         echo "${GREEN} you have the right version of Ruby for The Hacking Project ${RESET}"
         press_any_key_to_continue
+        echo ""
     else
         echo "${RED} You have not the right version of Ruby for The Hacking Project ${RESET}"
         press_any_key_to_continue
+        echo ""
     fi
 
     echo ${rails_version}
     if [ "$rails_version" == "Rails 5.2.3" ]; then
         echo "${GREEN} you have the right version of Rails for The Hacking Project ${RESET}"
         press_any_key_to_continue
+        echo ""
     else
+        echo ""
         echo "${RED} You have not the right version of Rails for The Hacking Project ${RESET}"
         press_any_key_to_continue
     fi
 
     if [ "$ruby_version" == "ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]" ] || [ "$rails_version" == "Rails 5.2.3" ]; then
-        echo "You have the right Ruby and Rails version for The Hacking Project"
+        echo ""
+        echo "${GREEN}#################################################################${RESET}"
+        echo "${GREEN}You have the right Ruby and Rails version for The Hacking Project${RESET}"
+        echo "${GREEN}You are ready for learning RUBY${RESET}"
+        echo "${GREEN}#################################################################${RESET}"
         press_any_key_to_continue
     else
-        echo "Something is wrong"
+        echo "${RED}#########################################${RESET}"
+        echo "${RED}You have not the good versions${RESET}"
+        echo "${RED}or Ruby and/or Rails is not installed yet${RESET}"
+        echo "${RED}#########################################${RESET}"
         press_any_key_to_continue
     fi
 }
@@ -255,35 +273,36 @@ install_oh_my_zsh() {
     press_any_key_to_continue
 
     if hash zsh 2>/dev/null; then
-        echo "ZSH has been detected on your system"
+        echo "${YELLOW}ZSH has been detected on your system${RESET}"
         press_any_key_to_continue
     else
-        echo "Zsh has not detected on your system"
-        echo "I will install it with sudo"
+        echo "${YELLOW}Zsh has not detected on your system${RESET}"
+        echo "${YELLOW}I will install it with sudo${RESET}"
         press_any_key_to_continue
         sudo apt install zsh
     fi
 
     if hash curl 2>/dev/null; then
-        echo "CURL has been detected on your system"
-        echo "I will install OH MY ZSH with it"
+        echo "${GREEN}CURL has been detected on your system${RESET}"
+        echo "${YELLOW}I will install OH MY ZSH with it${RESET}"
         press_any_key_to_continue
         sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     elif hash wget 2>/dev/null; then
-        echo "WGET has been detected on your system"
-        echo "I will install OH MY ZSH with it"
+        echo "${GREEN}WGET has been detected on your system${RESET}"
+        echo "${YELLOW}I will install OH MY ZSH with it${RESET}"
         press_any_key_to_continue
         sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
     else
-        echo "CURL and WGET has not detected on your system"
-        echo "I will install CURL with sudo"
-        echo "before install Oh-My-Zsh"
+        echo "${RED}CURL and WGET has not detected on your system${RESET}"
+        echo "${YELLOW}I will install CURL with sudo${RESET}"
+        echo "${YELLOW}before install Oh-My-Zsh${RESET}"
         press_any_key_to_continue
         sudo apt install curl
-        echo "Now I will install OH MY ZSH with CURL"
+        echo "${YELLOW}Now I will install OH MY ZSH with CURL${RESET}"
         press_any_key_to_continue
         sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     fi
+    echo "${GREEN}Oh My Zsh is now Installed${RESET}"
     press_any_key_to_continue
 }
 
@@ -341,12 +360,13 @@ menu_whiptail() {
                 "2)" "RVM installation" \
                 "3)" "Ruby version 2.5.1 installation" \
                 "4)" "Rails version 2.5.3 installation" \
-                "5)" "Heroku Installation" \
-                "6)" "Gem Installation" \
-                "7)" "PG's gem installation" \
-                "8)" "Install Oh My ZSH" \
-                "9)" "Install Visual Code" \
-                "10)" "End script" 3>&2 2>&1 1>&3
+                "5)" "Check Ruby and Rails versions" \
+                "6)" "Heroku Installation" \
+                "7)" "Gem Installation" \
+                "8)" "PG's gem installation" \
+                "9)" "Install Oh My ZSH" \
+                "10)" "Install Visual Code" \
+                "11)" "End script" 3>&2 2>&1 1>&3
         )
 
         case $CHOICE in
@@ -364,22 +384,24 @@ menu_whiptail() {
             install_Rails
             ;;
         "5)")
-            install_Heroku
-            ;;
-        "6)")
-            install_all_gem
-            ;;
-        "7)")
-            install_gem_pg
             check_ror_version
             ;;
+        "6)")
+            install_Heroku
+            ;;
+        "7)")
+            install_all_gem
+            ;;
         "8)")
-            install_oh_my_zsh
+            install_gem_pg
             ;;
         "9)")
-            Install_vscode
+            install_oh_my_zsh
             ;;
         "10)")
+            Install_vscode
+            ;;
+        "11)")
             clear
             exit
             ;;
@@ -411,9 +433,24 @@ main() {
  |_____|_| |_|___/\__\__,_|_|_|_| \___||___/\__|                                              
                                                                                               
 ${RESET}"
+
+echo "${YELLOW}The Hacking Project is a Peer-Learning training based in FRANCE
+
+Created by Félix Gaudé (CEO/Président) and Charles Dacquay (CMO/Directeur Général)
+more information at https://www.thehackingproject.org
+
+____________________________________________________________________________________
+
+Script information
+
+Author              LinkPhoenix
+Github              https://github.com/LinkPhoenix
+URL Repository      https://github.com/LinkPhoenix/THP_Installfest
+
+${RESET}"
     press_any_key_to_continue
 
-    if (whiptail --title "WARNING" --yesno "This script allows for a step-by-step installation of all the Inteliseft of The Hacking Project, the authors will not be in any way responsible for what you made of script.
+    if (whiptail --title "WARNING" --yesno "This script allows for a step-by-step installation of all the Intallseft of The Hacking Project, the authors will not be in any way responsible for what you made of script.
     
 Even if the script was done with love, the author LinkPhoenix of this one is in no way responsible for what you will do in it and is released from all responsibility on the results of this one.
 ------------------------------------------------------------------------------------------------

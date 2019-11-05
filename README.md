@@ -1,3 +1,5 @@
+![alt text](https://user-images.githubusercontent.com/33618968/68167380-8e8e9700-ff65-11e9-842f-19831f1c1580.png "The Hacking Project Logo")
+
 # InstallFest for The Hacking Project
 
 ## Description
