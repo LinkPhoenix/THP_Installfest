@@ -312,11 +312,11 @@ install_vim() {
     press_any_key_to_continue
 
     if hash vim 2>/dev/null; then
-        echo "Vim is already installed"
+        echo "${YELLOW}Vim is already installed${RESET}"
         press_any_key_to_continue
     else
-        echo "Vim has not detected on your system"
-        echo "I will install it with sudo"
+        echo "${RED}Vim has not detected on your system${RESET}"
+        echo "${YELLOW}I will install it with sudo${RESET}"
         press_any_key_to_continue
         sudo apt install vim
         press_any_key_to_continue
@@ -352,10 +352,21 @@ Install_vscode() {
     fi
 }
 
+if_yes() {
+        exitstatus=$?
+if [ $exitstatus = 0 ]; then
+echo "User selected Yes."
+press_any_key_to_continue
+else
+echo "User selected No."
+press_any_key_to_continue
+fi
+}
+
 menu_whiptail() {
     while [ 1 ]; do
-        CHOICE=$(
-            whiptail --title "Installfest - The Hacking Project" --menu "Make your choice" 16 100 9 \
+        CHOICE=$(eval `resize`
+            whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
                 "1)" "Depencies installation" \
                 "2)" "RVM installation" \
                 "3)" "Ruby version 2.5.1 installation" \
@@ -411,6 +422,20 @@ menu_whiptail() {
     exit
 }
 
+warning() {
+    if (whiptail --title "WARNING" --yesno "This script allows for a step-by-step installation of all the Intallseft of The Hacking Project, the authors will not be in any way responsible for what you made of script.
+    
+Even if the script was done with love, the author LinkPhoenix of this one is in no way responsible for what you will do in it and is released from all responsibility on the results of this one.
+------------------------------------------------------------------------------------------------
+
+By selecting YES you accept it is conditions otherwise please select NO!" 15 100); then
+        echo "User selected Yes, exit status was $?."
+    else
+        echo "User selected No, exit status was $?."
+        exit
+    fi
+}
+
 main() {
     setup_color
 
@@ -449,18 +474,7 @@ URL Repository      https://github.com/LinkPhoenix/THP_Installfest
 
 ${RESET}"
     press_any_key_to_continue
-
-    if (whiptail --title "WARNING" --yesno "This script allows for a step-by-step installation of all the Intallseft of The Hacking Project, the authors will not be in any way responsible for what you made of script.
-    
-Even if the script was done with love, the author LinkPhoenix of this one is in no way responsible for what you will do in it and is released from all responsibility on the results of this one.
-------------------------------------------------------------------------------------------------
-
-By selecting YES you accept it is conditions otherwise please select NO!" 15 100); then
-        echo "User selected Yes, exit status was $?."
-    else
-        echo "User selected No, exit status was $?."
-        exit
-    fi
+    warning
 
     if [[ "$OSTYPE" == "linux-gnu" ]]; then
         menu_whiptail
