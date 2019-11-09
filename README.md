@@ -1,4 +1,38 @@
-![alt text](https://user-images.githubusercontent.com/33618968/68167380-8e8e9700-ff65-11e9-842f-19831f1c1580.png "The Hacking Project Logo")
+<h1 align="center">
+  <a href="https://www.thehackingproject.org/">
+    <img alt="spaceship →~ prompt" src="https://user-images.githubusercontent.com/33618968/68535560-68417080-0344-11ea-9874-bfe991c361cf.jpg" width="400">
+  </a>
+  <br>The Hacking Project<br>
+</h1>
+
+<h4 align="center">
+  <a href="https://installfest.railsbridge.org/installfest/" target="_blank"><code>InstallFest</code></a>
+</h4>
+
+<p align="center">
+  <a href="https://twitter.com/the_hacking_pro">
+    <img src="https://img.shields.io/badge/twitter-%40The_Hacking_Pro-00ACEE.svg?style=flat-square"
+      alt="The Hacking project Twitter" />
+  </a>
+
+  <a href="https://www.instagram.com/the_hacking_project">
+    <img src="https://img.shields.io/badge/instagram-%40The_Hacking_Project-C42E73.svg?style=flat-square"
+      alt="The Hacking project Twitter" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/LinkPhoenix">
+    <img src="https://img.shields.io/github/followers/LinkPhoenix?style=social"
+      alt="Followers" />
+  </a>
+
+  <a href="https://github.com/LinkPhoenix/THP_Installfest/commits/master">
+    <img src="https://img.shields.io/github/last-commit/LinkPhoenix/THP_Installfest?style=flat-square"
+      alt="Commits" />
+  </a>
+
+</p>
 
 # InstallFest for The Hacking Project
 
