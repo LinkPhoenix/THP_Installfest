@@ -6,25 +6,76 @@
 
 setup_color() {
     # Only use colors if connected to a terminal
+    # Thank your Oh My ZSH
     if [ -t 1 ]; then
+        # https://gist.github.com/vratiu/9780109
+        # https://misc.flogisoft.com/bash/tip_colors_and_formatting
+        #RESET
+        RESET=$(printf '\033[m')
+
+        # Regular Colors
+        BLACK=$(printf '\033[30m')
         RED=$(printf '\033[31m')
         GREEN=$(printf '\033[32m')
         YELLOW=$(printf '\033[33m')
         BLUE=$(printf '\033[34m')
+        MAGENTA=$(printf '\033[35m')
+        CYAN=$(printf '\033[36m')
+        WHITE=$(printf '\033[37m')
+
+        #BACKGROUND
+        BG_BLACK=$(printf '\033[40m')
+        BG_RED=$(printf '\033[41m')
+        BG_GREEN=$(printf '\033[42m')
+        BG_YELLOW=$(printf '\033[43m')
+        BG_BLUE=$(printf '\033[44m')
+        BG_MAGENTA=$(printf '\033[45m')
+        BG_CYAN=$(printf '\033[46m')
+        BG_WHITE=$(printf '\033[47m')
+
+        # Formatting
         BOLD=$(printf '\033[1m')
-        RESET=$(printf '\033[m')
+        DIM=$(printf '\033[2m')
+        ITALIC=$(printf '\033[3m')
+        UNDERLINE=$(printf '\033[4m')
+        BLINK=$(printf '\033[4m')
+        REVERSE=$(printf '\033[4m')
+
     else
+        RESET=""
+
+        # Regular Colors
+        BLACK=""
         RED=""
         GREEN=""
         YELLOW=""
         BLUE=""
+        MAGENTA=""
+        CYAN=""
+        WHITE=""
+
+        #BACKGROUND
+        BG_BLACK=""
+        BG_RED=""
+        BG_GREEN=""
+        BG_YELLOW=""
+        BG_BLUE=""
+        BG_MAGENTA=""
+        BG_CYAN=""
+        BG_WHITE=""
+
+        # Formatting
         BOLD=""
-        RESET=""
+        DIM=""
+        ITALIC=""
+        UNDERLINE=""
+        BLINK=""
+        REVERSE=""
     fi
 }
 
 press_any_key_to_continue() {
-    read -n 1 -s -r -p "${GREEN} Press any key to continue `echo $'\n '`${RESET}"
+    read -n 1 -s -r -p "${GREEN}Press any key to continue `echo $'\n '`${RESET}"
 }
 
 ask() {
@@ -52,13 +103,29 @@ header() {
     echo ""
 }
 
+footer() {
+    echo ""
+    echo "${GREEN}#######################################################${RESET}"
+    echo ""
+    echo "${GREEN}  $1 ${RESET}"
+    echo ""
+    echo "${GREEN}#######################################################${RESET}"
+    echo ""
+}
+
 install_dependencies() {
     header "Dependencies installation for Ruby and RVM"
 
     press_any_key_to_continue
 
+    echo "${YELLOW}I will install all dependencies for The Hacking Project${RESET}"
+    echo "${YELLOW}$ sudo apt-get install autoconf automake bison build-essential curl git-core libapr1 libaprutil1 libc6-dev libltdl-dev libsqlite3-0 libsqlite3-dev libssl-dev libtool libxml2-dev libxslt-dev libxslt1-dev libyaml-dev ncurses-dev nodejs openssl sqlite3 zlib1g zlib1g-dev libreadline7
+${RESET}"
+    press_any_key_to_continue
+
     sudo apt-get install autoconf automake bison build-essential curl git-core libapr1 libaprutil1 libc6-dev libltdl-dev libsqlite3-0 libsqlite3-dev libssl-dev libtool libxml2-dev libxslt-dev libxslt1-dev libyaml-dev ncurses-dev nodejs openssl sqlite3 zlib1g zlib1g-dev libreadline7
 
+    footer "END OF DEPENDENCIES INSTALLATION"
     press_any_key_to_continue
 }
 
@@ -77,13 +144,17 @@ install_RVM() {
         echo "${YELLOW}I will install it with sudo${RESET}"
         echo ""
         press_any_key_to_continue
+        echo "${YELLOW}$ sudo apt install gnupg${RESET}"
         sudo apt install gnupg
         echo "${YELLOW}Now I will install RVM${RESET}"
         press_any_key_to_continue
     fi
     echo "${YELLOW}Install GPG keys${RESET}"
+    echo "${YELLOW}$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+${RESET}"
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
     echo "${YELLOW}Install RVM with CURL${RESET}"
+    echo "${YELLOW}$ curl -L get.rvm.io | bash -s stable${RESET}"
     curl -L get.rvm.io | bash -s stable
     echo "${GREEN}RVM is installed${RESET}"
     press_any_key_to_continue
@@ -104,7 +175,7 @@ check_rvm_as_function() {
       source "/usr/local/rvm/scripts/rvm"
       echo "${GREEN}using root install /usr/local/rvm/scripts/rvm${RESET}"
     else
-      echo "${RED}ERROR: An RVM installation was not found.\n${RESET}"
+      echo "${RED}ERROR: An RVM installation was not found.${RESET}"
     fi
 }
 
@@ -115,13 +186,28 @@ install_Ruby() {
 
     sudo apt-get install automake
 
-    check_rvm_as_function
+    ruby_version=$(ruby -v)
+    echo ${ruby_version}
+    if [ "$ruby_version" == "ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]" ]; then
+        echo "${GREEN} Ruby version 2.5.1 is already installed ${RESET}"
+        press_any_key_to_continue
+        echo ""
+    else
+        echo "${RED} Ruby version 2.5.1 is not installed ${RESET}"
+        echo "${YELLOW}I will install it with RVM${RESET}"
+        press_any_key_to_continue
+        echo ""
 
-    rvm install 2.5.1
-    rvm use 2.5.1
-    rvm --default use 2.5.1
+        check_rvm_as_function
 
-    press_any_key_to_continue
+        echo "${YELLOW}$ rvm install 2.5.1${RESET}"
+        rvm install 2.5.1
+        echo "${YELLOW}$ rvm use 2.5.1${RESET}"
+        rvm use 2.5.1
+        echo "${YELLOW}$ rvm --default use 2.5.1${RESET}"
+        rvm --default use 2.5.1
+        press_any_key_to_continue
+    fi
 }
 
 install_Rails() {
@@ -129,9 +215,21 @@ install_Rails() {
 
     press_any_key_to_continue
 
-    gem install rails -v 5.2.3
-
-    press_any_key_to_continue
+    rails_version=$(rails -v)
+    echo ${rails_version}
+    if [ "$rails_version" == "Rails 5.2.3" ]; then
+        echo "${GREEN} Rails version 5.2.3 is already installed ${RESET}"
+        press_any_key_to_continue
+        echo ""
+    else
+        echo "${RED} Rails version 5.2.3 is not installed ${RESET}"
+        echo "${YELLOW}I will install it with GEM command${RESET}"
+        press_any_key_to_continue
+        echo ""
+        echo "${YELLOW}$ gem install rails -v 5.2.3${RESET}"
+        gem install rails -v 5.2.3
+        press_any_key_to_continue
+    fi
 }
 
 install_Heroku() {
@@ -355,8 +453,8 @@ Install_vscode() {
 
 menu_whiptail() {
     while [ 1 ]; do
-        CHOICE=$(eval `resize`
-            whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
+    eval `resize`
+           CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
                 "1)" "Depencies installation" \
                 "2)" "RVM installation" \
                 "3)" "Ruby version 2.5.1 installation" \
@@ -367,21 +465,7 @@ menu_whiptail() {
                 "8)" "PG's gem installation" \
                 "9)" "Install Oh My ZSH" \
                 "10)" "Install Visual Code" \
-                "11)" "End script" 3>&2 2>&1 1>&3
-        )
-
-# exitstatus=$?
-# if [ $exitstatus = 0 ]; then
-# echo "User selected Yes."
-# press_any_key_to_continue
-# elif [ $exitstatus = 1 ]; then 
-# echo "User selected esc."
-# press_any_key_to_continue
-# elif [ $exitstatus = -1 ]; then
-# press_any_key_to_continue
-#     exit
-# fi
-
+                "11)" "End script" 3>&2 2>&1 1>&3)
         case $CHOICE in
         "1)")
             install_dependencies
@@ -389,7 +473,6 @@ menu_whiptail() {
         "2)")
             install_RVM
             ;;
-
         "3)")
             install_Ruby
             ;;
@@ -419,7 +502,6 @@ menu_whiptail() {
             exit
             ;;
         esac
-        whiptail --msgbox "Choice $CHOICE is over" 7 25
     done
     exit
 }
@@ -462,8 +544,8 @@ header="
 "
 i=0
 while [ $i -lt ${#header} ]; do
-    sleep 0.00001
-    echo -ne "${GREEN}${header:$i:1}${RESET}" | tr --delete "%"
+    sleep 0.0000001
+    echo -ne "${GREEN}${BOLD}${header:$i:1}${RESET}" | tr --delete "%"
     ((i++))
 done
 
@@ -484,7 +566,7 @@ URL Repository      https://github.com/LinkPhoenix/THP_Installfest
 
 i=0
 while [ $i -lt ${#info_script} ]; do
-    sleep 0.01
+    sleep 0.001
     echo -ne "${YELLOW}${info_script:$i:1}${RESET}" | tr --delete "%"
     ((i++))
 done
