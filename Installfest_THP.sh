@@ -38,8 +38,8 @@ setup_color() {
         DIM=$(printf '\033[2m')
         ITALIC=$(printf '\033[3m')
         UNDERLINE=$(printf '\033[4m')
-        BLINK=$(printf '\033[4m')
-        REVERSE=$(printf '\033[4m')
+        BLINK=$(printf '\033[5m')
+        REVERSE=$(printf '\033[7m')
 
     else
         RESET=""
@@ -75,7 +75,8 @@ setup_color() {
 }
 
 press_any_key_to_continue() {
-    read -n 1 -s -r -p "${GREEN}Press any key to continue `echo $'\n '`${RESET}"
+    read -n 1 -s -r -p "${GREEN}${BOLD}Press any key to continue${RESET}"
+    printf "\n"
 }
 
 ask() {
@@ -105,10 +106,32 @@ header() {
 
 footer() {
     echo ""
-    echo "${GREEN}#######################################################${RESET}"
+    echo "${GREEN}${BOLD}#######################################################${RESET}"
     echo ""
     echo "${GREEN}  $1 ${RESET}"
     echo ""
+    echo "${GREEN}${BOLD}#######################################################${RESET}"
+    echo ""
+}
+
+launching_command() {
+    echo "${YELLOW}#######################################################${RESET}"
+    echo "${BG_BLACK}${ITALIC}  $ $1 ${RESET}"
+    echo "${YELLOW}#######################################################${RESET}"
+}
+
+warning_text() {
+    echo ""
+    echo "${RED}#######################################################${RESET}"
+    echo "${RED}${BOLD}  $1 ${RESET}"
+    echo "${RED}#######################################################${RESET}"
+    echo ""
+}
+
+detect_text() {
+    echo ""
+    echo "${GREEN}#######################################################${RESET}"
+    echo "${GREEN}${BOLD}  $1 ${RESET}"
     echo "${GREEN}#######################################################${RESET}"
     echo ""
 }
@@ -119,13 +142,13 @@ install_dependencies() {
     press_any_key_to_continue
 
     echo "${YELLOW}I will install all dependencies for The Hacking Project${RESET}"
-    echo "${YELLOW}$ sudo apt-get install autoconf automake bison build-essential curl git-core libapr1 libaprutil1 libc6-dev libltdl-dev libsqlite3-0 libsqlite3-dev libssl-dev libtool libxml2-dev libxslt-dev libxslt1-dev libyaml-dev ncurses-dev nodejs openssl sqlite3 zlib1g zlib1g-dev libreadline7
-${RESET}"
+    launching_command "sudo apt-get install autoconf automake bison build-essential curl git-core libapr1 libaprutil1 libc6-dev libltdl-dev libsqlite3-0 libsqlite3-dev libssl-dev libtool libxml2-dev libxslt-dev libxslt1-dev libyaml-dev ncurses-dev nodejs openssl sqlite3 zlib1g zlib1g-dev libreadline7"
     press_any_key_to_continue
 
     sudo apt-get install autoconf automake bison build-essential curl git-core libapr1 libaprutil1 libc6-dev libltdl-dev libsqlite3-0 libsqlite3-dev libssl-dev libtool libxml2-dev libxslt-dev libxslt1-dev libyaml-dev ncurses-dev nodejs openssl sqlite3 zlib1g zlib1g-dev libreadline7
 
-    footer "END OF DEPENDENCIES INSTALLATION"
+    footer "DEPENDENCIES INSTALLATION END"
+
     press_any_key_to_continue
 }
 
@@ -135,13 +158,14 @@ install_RVM() {
     press_any_key_to_continue
 
     if hash gpg 2>/dev/null; then
-        echo "${YELLOW}GPG is detected on your system${RESET}"
+        detect_text "GPG is detected on your system"
         echo "${YELLOW}I Will install RVM${RESET}"
         press_any_key_to_continue
     else
-        echo "${RED}GPG is not detected in your system${RESET}"
+        warning_text "GPG is not detected in your system"
         echo "${YELLOW}I need it for install RVM${RESET}"
         echo "${YELLOW}I will install it with sudo${RESET}"
+        launching_command "sudo apt install gnupg"
         echo ""
         press_any_key_to_continue
         echo "${YELLOW}$ sudo apt install gnupg${RESET}"
@@ -150,13 +174,15 @@ install_RVM() {
         press_any_key_to_continue
     fi
     echo "${YELLOW}Install GPG keys${RESET}"
-    echo "${YELLOW}$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-${RESET}"
+    launching_command "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB"
+    echo "${YELLOW}$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB${RESET}"
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
     echo "${YELLOW}Install RVM with CURL${RESET}"
-    echo "${YELLOW}$ curl -L get.rvm.io | bash -s stable${RESET}"
+    launching_command "curl -L get.rvm.io | bash -s stable"
     curl -L get.rvm.io | bash -s stable
-    echo "${GREEN}RVM is installed${RESET}"
+    
+    footer "RVM INSTALLATION END"
+
     press_any_key_to_continue
 }
 
@@ -183,11 +209,11 @@ install_Ruby() {
     header "Ruby installation version 2.5.1 with RVM"
 
     press_any_key_to_continue
-
+    launching_command "sudo apt-get install automake"
     sudo apt-get install automake
 
     ruby_version=$(ruby -v)
-    echo ${ruby_version}
+    # echo ${ruby_version}
     if [ "$ruby_version" == "ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]" ]; then
         echo "${GREEN} Ruby version 2.5.1 is already installed ${RESET}"
         press_any_key_to_continue
@@ -200,14 +226,17 @@ install_Ruby() {
 
         check_rvm_as_function
 
-        echo "${YELLOW}$ rvm install 2.5.1${RESET}"
+        launching_command "rvm install 2.5.1"
         rvm install 2.5.1
-        echo "${YELLOW}$ rvm use 2.5.1${RESET}"
+        launching_command "rvm use 2.5.1"
         rvm use 2.5.1
-        echo "${YELLOW}$ rvm --default use 2.5.1${RESET}"
+        launching_command "rvm --default use 2.5.1"
         rvm --default use 2.5.1
-        press_any_key_to_continue
     fi
+
+    footer "RUBY INSTALLATION END"
+
+    press_any_key_to_continue
 }
 
 install_Rails() {
@@ -216,7 +245,7 @@ install_Rails() {
     press_any_key_to_continue
 
     rails_version=$(rails -v)
-    echo ${rails_version}
+    # echo ${rails_version}
     if [ "$rails_version" == "Rails 5.2.3" ]; then
         echo "${GREEN} Rails version 5.2.3 is already installed ${RESET}"
         press_any_key_to_continue
@@ -226,10 +255,13 @@ install_Rails() {
         echo "${YELLOW}I will install it with GEM command${RESET}"
         press_any_key_to_continue
         echo ""
-        echo "${YELLOW}$ gem install rails -v 5.2.3${RESET}"
+        launching_command "gem install rails -v 5.2.3"
         gem install rails -v 5.2.3
-        press_any_key_to_continue
     fi
+
+    footer "RAILS INSTALLATION END"
+
+    press_any_key_to_continue
 }
 
 install_Heroku() {
@@ -237,10 +269,16 @@ install_Heroku() {
 
     press_any_key_to_continue
 
-    echo "${YELLOW}I start install of HEROKU with CURL${RESET}"
-    press_any_key_to_continue
-    curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-    echo "${GREEN}Heroku is Installed${RESET}"
+    if hash heroku 2>/dev/null; then
+        detect_text "HEROKU is already install on your system"
+        press_any_key_to_continue
+    else
+        echo "${YELLOW}I start install of HEROKU with CURL${RESET}"
+        launching_command "curl https://cli-assets.heroku.com/install-ubuntu.sh | sh"
+        press_any_key_to_continue
+        curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+    fi
+    footer "HEROKU INSTALLATION END"
 
     press_any_key_to_continue
 }
@@ -277,12 +315,16 @@ install_all_gem() {
     press_any_key_to_continue
 
     gem_array=(rspec rubocop pry dotenv twitter nokogiri launchy watir selenium-webdriver json colorize sinatra shotgun csv rack sqlite3 faker)
-    echo "Here is the list of all gems that The Hacking Project offers"
-    echo ${gem_array[*]}
+    echo "Here is the list of all gems that ${REVERSE}${BOLD}The Hacking Project offers${RESET}"
+    echo "${YELLOW}###### List of all gem for The Hacking Project${RESET}"
+    echo "${BG_BLACK}${ITALIC}==>${gem_array[*]} ${RESET}"
+    echo ""
     echo "you will be able to choose which ones you want to install"
     press_any_key_to_continue
 
     for gem in "${gem_array[@]}"; do ask_install_gem; done
+
+    footer "GEM INSTALLATION END"
 
     press_any_key_to_continue
 }
@@ -297,27 +339,34 @@ install_gem_pg() {
         if [[ $ID == ubuntu ]]; then
             read _ UBUNTU_VERSION_NAME <<<"$VERSION"
             echo "Running Ubuntu $UBUNTU_VERSION_NAME"
-            echo "I will add 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main' in /etc/apt/sources.list.d/pgdg.list"
+            launching_command 'sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"'
             press_any_key_to_continue
             sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
             press_any_key_to_continue
         else
             echo "Not running an Ubuntu distribution. ID=$ID, VERSION=$VERSION"
             echo "Your system is based on Ubuntu $UBUNTU_CODENAME"
-            echo "I add 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main' in /etc/apt/sources.list.d/pgdg.list"
+            launching_command "sudo sh -c echo deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main > /etc/apt/sources.list.d/pgdg.list"
             press_any_key_to_continue
             sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
             press_any_key_to_continue
         fi
+    launching_command "wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -"
     wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
+    launching_command "sudo apt update"
     sudo apt update
+    launching_command "sudo apt upgrade"
     sudo apt upgrade
+    launching_command "sudo apt install postgresql-common"
     sudo apt install postgresql-common
+    launching_command "sudo apt install postgresql-9.5 libpq-dev"
     sudo apt install postgresql-9.5 libpq-dev
     else
-        echo "Not running a distribution with /etc/os-release available"
-        echo "I can't install the GEM PG with PostgreSQL"
+        WARNING "Not running a distribution with /etc/os-release available
+        I can't install the GEM PG with PostgreSQL"
     fi
+
+    footer "PG GEM INSTALLATION END"
 
     press_any_key_to_continue
 }
@@ -325,41 +374,45 @@ install_gem_pg() {
 check_ror_version() {
     header "Check Ruby and Rails versions"
 
+    press_any_key_to_continue
+
     ruby_version=$(ruby -v)
     rails_version=$(rails -v)
     echo ${ruby_version}
+    echo ""
     if [ "$ruby_version" == "ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]" ]; then
-        echo "${GREEN} you have the right version of Ruby for The Hacking Project ${RESET}"
+        echo "${GREEN} You have the right version of ${RED}Ruby${RESET} ${GREEN}for${RESET} ${REVERSE}${BOLD}The Hacking Project${RESET}"
         press_any_key_to_continue
         echo ""
     else
-        echo "${RED} You have not the right version of Ruby for The Hacking Project ${RESET}"
+        echo "${RED} You have not the right version of ${RED}Ruby${RESET} ${RED}for${RESET} ${REVERSE}${BOLD}The Hacking Project${RESET}"
         press_any_key_to_continue
         echo ""
     fi
 
     echo ${rails_version}
+    echo ""
     if [ "$rails_version" == "Rails 5.2.3" ]; then
-        echo "${GREEN} you have the right version of Rails for The Hacking Project ${RESET}"
+        echo "${GREEN} You have the right version of ${RED}Rails${RESET} ${GREEN}for${RESET} ${REVERSE}${BOLD}The Hacking Project${RESET}"
         press_any_key_to_continue
         echo ""
     else
         echo ""
-        echo "${RED} You have not the right version of Rails for The Hacking Project ${RESET}"
+        echo "${RED} You have not the right version of ${RED}Rails${RESET} ${RED}for${RESET} ${REVERSE}${BOLD}The Hacking Project${RESET}"
         press_any_key_to_continue
     fi
 
     if [ "$ruby_version" == "ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]" ] || [ "$rails_version" == "Rails 5.2.3" ]; then
         echo ""
         echo "${GREEN}#################################################################${RESET}"
-        echo "${GREEN}You have the right Ruby and Rails version for The Hacking Project${RESET}"
+        echo "${GREEN}You have the right ${RED}Ruby${RESET} ${GREEN}and${RESET} ${RED}Rails${RESET} ${GREEN}version for${RESET} ${REVERSE}${BOLD}The Hacking Project${RESET}"
         echo "${GREEN}You are ready for learning RUBY${RESET}"
         echo "${GREEN}#################################################################${RESET}"
         press_any_key_to_continue
     else
         echo "${RED}#########################################${RESET}"
         echo "${RED}You have not the good versions${RESET}"
-        echo "${RED}or Ruby and/or Rails is not installed yet${RESET}"
+        echo "${RED}or ${RED}Ruby${RESET} and/or ${RED}Rails${RESET} ${RED}is not installed yet${RESET}"
         echo "${RED}#########################################${RESET}"
         press_any_key_to_continue
     fi
@@ -371,36 +424,41 @@ install_oh_my_zsh() {
     press_any_key_to_continue
 
     if hash zsh 2>/dev/null; then
-        echo "${YELLOW}ZSH has been detected on your system${RESET}"
+        detect_text "ZSH has been detected on your system"
         press_any_key_to_continue
     else
-        echo "${YELLOW}Zsh has not detected on your system${RESET}"
+        warning_text "Zsh has not detected on your system"
         echo "${YELLOW}I will install it with sudo${RESET}"
+        launching_command "sudo apt install zsh"
         press_any_key_to_continue
         sudo apt install zsh
     fi
 
     if hash curl 2>/dev/null; then
-        echo "${GREEN}CURL has been detected on your system${RESET}"
+        detect_text "CURL has been detected on your system"
         echo "${YELLOW}I will install OH MY ZSH with it${RESET}"
+        launching_command "sh -c \$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
         press_any_key_to_continue
         sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     elif hash wget 2>/dev/null; then
-        echo "${GREEN}WGET has been detected on your system${RESET}"
+        detect_text "WGET has been detected on your system"
         echo "${YELLOW}I will install OH MY ZSH with it${RESET}"
+        launching_command "sh -c \$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
         press_any_key_to_continue
         sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
     else
-        echo "${RED}CURL and WGET has not detected on your system${RESET}"
+        warning_text "CURL and WGET has not detected on your system"
         echo "${YELLOW}I will install CURL with sudo${RESET}"
         echo "${YELLOW}before install Oh-My-Zsh${RESET}"
+        launching_command "sudo apt install curl"
         press_any_key_to_continue
         sudo apt install curl
         echo "${YELLOW}Now I will install OH MY ZSH with CURL${RESET}"
+        launching_command "sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)""
         press_any_key_to_continue
         sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     fi
-    echo "${GREEN}Oh My Zsh is now Installed${RESET}"
+    footer "OH MY ZSH INSTALLATION END"
     press_any_key_to_continue
 }
 
@@ -410,15 +468,19 @@ install_vim() {
     press_any_key_to_continue
 
     if hash vim 2>/dev/null; then
-        echo "${YELLOW}Vim is already installed${RESET}"
+        detect_text "Vim is already installed"
         press_any_key_to_continue
     else
-        echo "${RED}Vim has not detected on your system${RESET}"
+        warning_text "Vim has not detected on your system"
         echo "${YELLOW}I will install it with sudo${RESET}"
+        launching_command "sudo apt install vim"
         press_any_key_to_continue
         sudo apt install vim
-        press_any_key_to_continue
     fi
+
+    footer "VIM INSTALLATON END"
+
+    press_any_key_to_continue
 }
 
 Install_vscode() {
@@ -427,27 +489,29 @@ Install_vscode() {
     press_any_key_to_continue
 
     if hash code 2>/dev/null; then
-        echo "Visual Code is already installed"
+        detect_text "Visual Code is already installed"
         press_any_key_to_continue
     else
-        echo "Visual code has not detected on your system"
-        echo "I will install it with snap"
+        warning_text "Visual code has not detected on your system"
+        echo "I will install it"
         press_any_key_to_continue
-        if hash snap 2>/dev/null; then
-            echo "SNAP has not detected on your system"
-            echo "I need it for install Visual Code"
-            echo "I will install it with sudo"
-            press_any_key_to_continue
-            sudo apt update
-            sudo apt install snapd
-        fi
-        echo "I will install Visual Code with SNAP"
-        press_any_key_to_continue
-
-        snap install code --classic
-        
-        press_any_key_to_continue
+        launching_command "curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg"
+        curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+        launching_command "sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/"
+        sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
+        launching_command "sudo sh -c echo deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main > /etc/apt/sources.list.d/vscode.list"
+        sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+        launching_command "sudo apt-get install apt-transport-https"
+        sudo apt-get install apt-transport-https
+        launching_command "sudo apt-get update"
+        sudo apt-get update
+        launching_command "sudo apt-get install code"
+        sudo apt-get install code
     fi
+
+    footer "VISUAL CODE INSTALLATION END"
+
+    press_any_key_to_continue
 }
 
 
@@ -554,7 +618,7 @@ info_script="The Hacking Project is a Peer-Learning training based in FRANCE
 Created by Félix Gaudé (CEO/Président) and Charles Dacquay (CMO/Directeur Général)
 more information at https://www.thehackingproject.org
 
-____________________________________________________________________________________
+_______________________________________________________________________________________________
 
 Script information
 
@@ -567,7 +631,7 @@ URL Repository      https://github.com/LinkPhoenix/THP_Installfest
 i=0
 while [ $i -lt ${#info_script} ]; do
     sleep 0.001
-    echo -ne "${YELLOW}${info_script:$i:1}${RESET}" | tr --delete "%"
+    echo -ne "${YELLOW}${BOLD}${info_script:$i:1}${RESET}" | tr --delete "%"
     ((i++))
 done
 
