@@ -352,16 +352,6 @@ Install_vscode() {
     fi
 }
 
-if_yes() {
-        exitstatus=$?
-if [ $exitstatus = 0 ]; then
-echo "User selected Yes."
-press_any_key_to_continue
-else
-echo "User selected No."
-press_any_key_to_continue
-fi
-}
 
 menu_whiptail() {
     while [ 1 ]; do
@@ -379,6 +369,18 @@ menu_whiptail() {
                 "10)" "Install Visual Code" \
                 "11)" "End script" 3>&2 2>&1 1>&3
         )
+
+# exitstatus=$?
+# if [ $exitstatus = 0 ]; then
+# echo "User selected Yes."
+# press_any_key_to_continue
+# elif [ $exitstatus = 1 ]; then 
+# echo "User selected esc."
+# press_any_key_to_continue
+# elif [ $exitstatus = -1 ]; then
+# press_any_key_to_continue
+#     exit
+# fi
 
         case $CHOICE in
         "1)")
@@ -441,7 +443,7 @@ main() {
 
     notify-send 'InstallFest' 'His script was written by LinkPhoenix'
 
-    echo "${GREEN}
+header="
   _______ _            _    _            _    _               _____           _           _   
  |__   __| |          | |  | |          | |  (_)             |  __ \         (_)         | |  
     | |  | |__   ___  | |__| | __ _  ___| | ___ _ __   __ _  | |__) | __ ___  _  ___  ___| |_ 
@@ -457,9 +459,15 @@ main() {
   _| |_| | | \__ \ || (_| | | | ||  __/\__ \ |_                                               
  |_____|_| |_|___/\__\__,_|_|_|_| \___||___/\__|                                              
                                                                                               
-${RESET}"
+"
+i=0
+while [ $i -lt ${#header} ]; do
+    sleep 0.00001
+    echo -ne "${GREEN}${header:$i:1}${RESET}" | tr --delete "%"
+    ((i++))
+done
 
-echo "${YELLOW}The Hacking Project is a Peer-Learning training based in FRANCE
+info_script="The Hacking Project is a Peer-Learning training based in FRANCE
 
 Created by Félix Gaudé (CEO/Président) and Charles Dacquay (CMO/Directeur Général)
 more information at https://www.thehackingproject.org
@@ -472,7 +480,15 @@ Author              LinkPhoenix
 Github              https://github.com/LinkPhoenix
 URL Repository      https://github.com/LinkPhoenix/THP_Installfest
 
-${RESET}"
+"
+
+i=0
+while [ $i -lt ${#info_script} ]; do
+    sleep 0.01
+    echo -ne "${YELLOW}${info_script:$i:1}${RESET}" | tr --delete "%"
+    ((i++))
+done
+
     press_any_key_to_continue
     warning
 
