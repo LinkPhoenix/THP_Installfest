@@ -19,6 +19,23 @@
     <img src="https://img.shields.io/badge/instagram-%40The_Hacking_Project-C42E73.svg?style=flat-square"
       alt="The Hacking project Twitter" />
   </a>
+
+  <a href="https://www.ruby-lang.org/en/">
+    <img src="https://img.shields.io/badge/Ruby-2.5.1-930E04.svg?style=flat-square"
+      alt="Ruby Version" />
+  </a>
+
+  <a href="https://rubyonrails.org/">
+    <img src="https://img.shields.io/badge/Rails-5.2.3-930E04.svg?style=flat-square"
+      alt="Ruby Version" />
+  </a>
+
+  <a href="https://www.postgresql.org/">
+    <img src="https://img.shields.io/badge/PostegreSQL-9.5-31648C.svg?style=flat-square"
+      alt="Ruby Version" />
+  </a>
+
+
 </p>
 
 <p align="center">
@@ -31,6 +48,11 @@
     <img src="https://img.shields.io/github/last-commit/LinkPhoenix/THP_Installfest?style=flat-square"
       alt="Commits" />
   </a>
+
+  <div align="center">
+    <sub>Built with ❤︎ by
+    <a href="https://github.com/LinkPhoenix">LinkPhoenix</a></a>
+  </div>
 
 </p>
 
@@ -89,4 +111,4 @@ Scripting aims to automate the installation repairing a working environment for 
 - [ ] Check if you have SSH Key
 - [ ] Install TERMINATOR
 - [ ] Config Alias and/or config Plugins OH MY ZSH
-- [ ] Send notify-send in all step 
+- [ ] Send notify-send in all step
