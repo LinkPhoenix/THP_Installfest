@@ -56,27 +56,28 @@
 
 </p>
 
-# InstallFest for The Hacking Project
+This script has been coded to facilitate the installation of the InstallFest for the training The Hacking Project in France, it will allow you to install all that you need to begin the training.
 
-## Description
+<p align="center">
+  <img alt="THP InstallFest launching" src="https://user-images.githubusercontent.com/33618968/68536089-911a3380-034d-11ea-9a97-ce2b9c8c6dc2.gif" width="980px">
+</p>
 
-Scripting aims to automate the installation repairing a working environment for French training The Hacking Project
-
-## Getting Started
+# Getting Started
 
 ### Prerequisites
 
 - A Unix-like operating system: Linux
-- `curl` or `wget`should be installed
-- The option "Run as a login sheel" must be activated in your terminal's preferences for the installation of RVM
+- [`curl`](https://curl.haxx.se/) or [`wget`](https://www.gnu.org/software/wget/) should be installed
 
-### Installation via curl
+## Installing
+
+### Via curl
 
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/LinkPhoenix/THP_Installfest/master/Installfest_THP.sh)"
 
-### Installation via wget
+### Via wget
 
-    bash -c "$(https://raw.githubusercontent.com/LinkPhoenix/THP_Installfest/master/Installfest_THP.sh -O -)"
+    bash -c "$(wget https://raw.githubusercontent.com/LinkPhoenix/THP_Installfest/master/Installfest_THP.sh -O -)"
 
 ### Manual installation
 
@@ -92,23 +93,93 @@ Scripting aims to automate the installation repairing a working environment for 
 
     bash THP_Installfest.sh
 
-## Improvements
+### To-do features
 
-- [x] Impossible launch if you are no Linux user
-- [x] Beautify menu
-- [ ] Full reinstall all
-- [ ] Install All
-- [ ] Check if all is ok
-- [ ] Repair
-- [x] Better Warning
-- [ ] Logs
-- [x] Install Oh My ZSH
-- [ ] Ask which IDE you want (Atom, VsCode, Sublime...)
-- [ ] Install Git
-- [ ] Function for Ask random Question
-- [x] Install VIM
-- [ ] More information about THP
-- [ ] Check if you have SSH Key
-- [ ] Install TERMINATOR
-- [ ] Config Alias and/or config Plugins OH MY ZSH
-- [ ] Send notify-send in all step
+<div>
+  <input type="checkbox" checked>
+  <label>Do not launch if the user is not on Linux</label>
+</div>
+
+<div>
+  <input type="checkbox" checked>
+  <label>Beautiful menu</label>
+</div>
+
+<div>
+  <input type="checkbox">
+  <label>Install All</label>
+</div>
+
+<div>
+  <input type="checkbox">
+  <label>Check if all is ok</label>
+</div>
+
+<div>
+  <input type="checkbox">
+  <label>Repair</label>
+</div>
+
+<div>
+  <input type="checkbox" checked>
+  <label>Better Warning</label>
+</div>
+
+<div>
+  <input type="checkbox">
+  <label>Logs</label>
+</div>
+
+<div>
+  <input type="checkbox" checked>
+  <label>Install Oh My ZSH</label>
+</div>
+
+<div>
+  <input type="checkbox">
+  <label>Ask which IDE you want (Atom, VsCode, Sublime...)</label>
+</div>
+
+<div>
+  <input type="checkbox">
+  <label>Choice for install Git</label>
+</div>
+
+<div>
+  <input type="checkbox" checked>
+  <label>Install VIM</label>
+</div>
+
+<div>
+  <input type="checkbox" checked>
+  <label>More information about THP</label>
+</div>
+
+<div>
+  <input type="checkbox">
+  <label>Check if you have SSH Key</label>
+</div>
+
+<div>
+  <input type="checkbox">
+  <label>Install TERMINATOR</label>
+</div>
+
+<div>
+  <input type="checkbox">
+  <label>Config Alias and/or config Plugins OH MY ZSH</label>
+</div>
+
+<div>
+  <input type="checkbox" checked>
+  <label>Send notify-send at start</label>
+</div>
+
+<div>
+  <input type="checkbox">
+  <label></label>Full reinstall all</label>
+</div>
+
+## Donate
+
+Coming soon
