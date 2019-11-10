@@ -514,57 +514,132 @@ Install_vscode() {
     press_any_key_to_continue
 }
 
+Install_atom() {
+    header "Atom Installation"
+
+    press_any_key_to_continue
+
+    if hash atom 2>/dev/null; then
+        detect_text "Atom is already installed"
+        press_any_key_to_continue
+    else
+        warning_text "Atom has not detected on your system"
+        echo "I will install it"
+        press_any_key_to_continue
+        launching_command "wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -"
+        wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+        launching_command "sudo sh -c echo deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main > /etc/apt/sources.list.d/atom.list"
+        sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+        launching_command "sudo apt update"
+        sudo apt update
+        launching_command "sudo apt-get install atom"
+        sudo apt install atom
+    fi
+
+    footer "ATOM INSTALLATION END"
+
+    press_any_key_to_continue
+}
+
+Install_sublime_text() {
+    header "Sublime Text Installation"
+
+    press_any_key_to_continue
+
+    if hash subl 2>/dev/null; then
+        detect_text "Sublime Text is already installed"
+        press_any_key_to_continue
+    else
+        warning_text "Sublime Text has not detected on your system"
+        echo "I will install it"
+        press_any_key_to_continue
+        launching_command "wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -"
+        wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+        launching_command "sudo apt install apt-transport-https"
+        sudo apt install apt-transport-https
+        launching_command "echo deb https://download.sublimetext.com/ apt/stable/ | sudo tee /etc/apt/sources.list.d/sublime-text.list"
+        echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+        launching_command "sudo apt update"
+        sudo apt update
+        launching_command "sudo apt-get install sublime-text"
+        sudo apt install sublime-text
+    fi
+
+    footer "SUBLIME TEXT INSTALLATION END"
+
+    press_any_key_to_continue
+}
+
+install_git() {
+    if hash git 2>/dev/null; then
+        detect_text "GIT is already installed"
+        press_any_key_to_continue
+    else
+        warning_text "GIT has not detected on your system"
+        echo "I will install it"
+        launching_command "sudo apt update"
+        sudo apt update
+        launching_command "sudo apt install git"
+        sudo apt install git
+        press_any_key_to_continue
+    fi
+
+    footer "GIT INSTALLATION END"
+
+    press_any_key_to_continue
+}
+
+choice_IDE() {
+    eval `resize`
+           CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
+                "1)" "Visual Code" \
+                "2)" "Atom" \
+                "3)" "Sublime Text" 3>&2 2>&1 1>&3)
+                case $CHOICE in
+        "1)") Install_vscode;;
+        "2)") Install_atom;;
+        "3)") Install_sublime_text;;
+        esac
+}
+
+end_of_script() {
+    clear
+    exit
+}
+
+
 
 menu_whiptail() {
     while [ 1 ]; do
     eval `resize`
            CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
-                "1)" "Depencies installation" \
-                "2)" "RVM installation" \
-                "3)" "Ruby version 2.5.1 installation" \
-                "4)" "Rails version 2.5.3 installation" \
-                "5)" "Check Ruby and Rails versions" \
-                "6)" "Heroku Installation" \
-                "7)" "Gem Installation" \
-                "8)" "PG's gem installation" \
-                "9)" "Install Oh My ZSH" \
-                "10)" "Install Visual Code" \
-                "11)" "End script" 3>&2 2>&1 1>&3)
+                "1)" "Exit" \
+                "2)" "Depencies installation" \
+                "3)" "RVM installation" \
+                "4)" "Ruby version 2.5.1 installation" \
+                "5)" "Rails version 2.5.3 installation" \
+                "6)" "Check Ruby and Rails versions" \
+                "7)" "Heroku Installation" \
+                "8)" "Gem Installation" \
+                "9)" "PG's gem installation" \
+                "10)" "Install Oh My ZSH" \
+                "11)" "Choice my IDE" \
+                "12)" "Install VIM" \
+                "13)" "Install GIT" 3>&2 2>&1 1>&3)
         case $CHOICE in
-        "1)")
-            install_dependencies
-            ;;
-        "2)")
-            install_RVM
-            ;;
-        "3)")
-            install_Ruby
-            ;;
-        "4)")
-            install_Rails
-            ;;
-        "5)")
-            check_ror_version
-            ;;
-        "6)")
-            install_Heroku
-            ;;
-        "7)")
-            install_all_gem
-            ;;
-        "8)")
-            install_gem_pg
-            ;;
-        "9)")
-            install_oh_my_zsh
-            ;;
-        "10)")
-            Install_vscode
-            ;;
-        "11)")
-            clear
-            exit
-            ;;
+        "1)") end_of_script;;
+        "2)") install_dependencies;;
+        "3)") install_RVM;;
+        "4)") install_Ruby;;
+        "5)") install_Rails;;
+        "6)") check_ror_version;;
+        "7)") install_Heroku;;
+        "8)") install_all_gem;;
+        "9)") install_gem_pg;;
+        "10)") install_oh_my_zsh;;
+        "11)") choice_IDE;;
+        "12)") install_vim;;
+        "13)") install_git;;
         esac
     done
     exit

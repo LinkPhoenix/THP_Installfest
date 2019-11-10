@@ -107,8 +107,8 @@ This script has been coded to facilitate the installation of the InstallFest for
 - ☑ Better Warning
 - ◻ Logs
 - ☑ Install Oh My ZSH
-- ◻ Ask which IDE you want (Atom, VsCode, Sublime...)
-- ◻ Choice for install Git
+- ☑ Ask which IDE you want (Atom, VsCode, Sublime...)
+- ☑ Choice for install Git
 - ☑ Install VIM
 - ☑ More information about THP
 - ◻ Checking for existing SSH keys
