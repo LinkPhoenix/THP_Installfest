@@ -95,90 +95,27 @@ This script has been coded to facilitate the installation of the InstallFest for
 
 ### To-do features
 
-<div>
-  <input type="checkbox" checked>
-  <label>Do not launch if the user is not on Linux</label>
-</div>
-
-<div>
-  <input type="checkbox" checked>
-  <label>Beautiful menu</label>
-</div>
-
-<div>
-  <input type="checkbox">
-  <label>Install All</label>
-</div>
-
-<div>
-  <input type="checkbox">
-  <label>Check if all is ok</label>
-</div>
-
-<div>
-  <input type="checkbox">
-  <label>Repair</label>
-</div>
-
-<div>
-  <input type="checkbox" checked>
-  <label>Better Warning</label>
-</div>
-
-<div>
-  <input type="checkbox">
-  <label>Logs</label>
-</div>
-
-<div>
-  <input type="checkbox" checked>
-  <label>Install Oh My ZSH</label>
-</div>
-
-<div>
-  <input type="checkbox">
-  <label>Ask which IDE you want (Atom, VsCode, Sublime...)</label>
-</div>
-
-<div>
-  <input type="checkbox">
-  <label>Choice for install Git</label>
-</div>
-
-<div>
-  <input type="checkbox" checked>
-  <label>Install VIM</label>
-</div>
-
-<div>
-  <input type="checkbox" checked>
-  <label>More information about THP</label>
-</div>
-
-<div>
-  <input type="checkbox">
-  <label>Check if you have SSH Key</label>
-</div>
-
-<div>
-  <input type="checkbox">
-  <label>Install TERMINATOR</label>
-</div>
-
-<div>
-  <input type="checkbox">
-  <label>Config Alias and/or config Plugins OH MY ZSH</label>
-</div>
-
-<div>
-  <input type="checkbox" checked>
-  <label>Send notify-send at start</label>
-</div>
-
-<div>
-  <input type="checkbox">
-  <label></label>Full reinstall all</label>
-</div>
+- ☑ Do not launch if the user is not on Linux 
+- ☑ Beautiful menu 
+- ☑ Print all command
+- ☑ Header
+- ☑ Footer
+- ☑ Install Visual Code
+- ◻ Install All
+- ◻ Check if all is ok
+- ◻ Repair
+- ☑ Better Warning
+- ◻ Logs
+- ☑ Install Oh My ZSH
+- ◻ Ask which IDE you want (Atom, VsCode, Sublime...)
+- ◻ Choice for install Git
+- ☑ Install VIM
+- ☑ More information about THP
+- ◻ Checking for existing SSH keys
+- ◻ Install TERMINATOR
+- ◻ Config Alias and/or config Plugins OH MY ZSH
+- ◻ Send notify-send at start
+- ◻ Full reinstall all 
 
 ## Donate
 
