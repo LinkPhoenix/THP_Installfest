@@ -602,6 +602,54 @@ choice_IDE() {
         esac
 }
 
+extension_vscode() {
+    code --install-extension formulahendry.auto-close-tag
+    code --install-extension formulahendry.auto-rename-tag
+    code --install-extension aaron-bond.better-comments
+    code --install-extension thekalinga.bootstrap4-vscode
+    code --install-extension coenraads.bracket-pair-colorizer-2
+    code --install-extension formulahendry.code-runner
+    code --install-extension anseki.vscode-color
+    code --install-extension msjsdiag.debugger-for-chrome
+    code --install-extension firefox-devtools.vscode-firefox-debug
+    code --install-extension mikestead.dotenv
+    code --install-extension perkovec.emoji
+    code --install-extension giancarlopro.faker-snippets
+    code --install-extension donjayamanne.githistory
+    code --install-extension codezombiech.gitignore
+    code --install-extension eamodio.gitlens
+    code --install-extension ivangabriele.vscode-heroku
+    code --install-extension sidthesloth.html5-boilerplate
+    code --install-extension tht13.html-preview-vscode
+    code --install-extension abusaidm.html-snippets
+    code --install-extension xabikos.javascriptsnippets
+    code --install-extension emilast.logfilehighlighter
+    code --install-extension davidanson.vscode-markdownlint
+    code --install-extension christian-kohler.path-intellisense
+    code --install-extension esbenp.prettier-vscode
+    code --install-extension alefragnani.project-manager
+    code --install-extension bung87.rails
+    code --install-extension jemmyw.rails-fast-nav
+    code --install-extension shanehofstetter.rails-i18n
+    code --install-extension shanehofstetter.rails-open-partial
+    code --install-extension aki77.rails-routes
+    code --install-extension noku.rails-run-spec-vscode
+    code --install-extension vense.rails-snippets
+    code --install-extension asux.rspec-focus
+    code --install-extension karunamurti.rspec-snippets
+    code --install-extension rebornix.ruby
+    code --install-extension hridoy.rails-snippets
+    code --install-extension kosai106.ruby-syntax-replacer
+    code --install-extension misogi.ruby-rubocop
+    code --install-extension miguel-savignano.ruby-symbols
+    code --install-extension vortizhe.simple-ruby-erb
+    code --install-extension alexcvzz.vscode-sqlite
+    code --install-extension xshrim.txt-syntax
+    code --install-extension bung87.vscode-gemfile
+    code --install-extension vscode-icons-team.vscode-icons
+    code --install-extension thadeu.vscode-run-rspec-file
+}
+
 end_of_script() {
     clear
     exit
@@ -625,7 +673,8 @@ menu_whiptail() {
                 "10)" "Install Oh My ZSH" \
                 "11)" "Choice my IDE" \
                 "12)" "Install VIM" \
-                "13)" "Install GIT" 3>&2 2>&1 1>&3)
+                "13)" "Install GIT" \
+                "14)" "Install Visual Code Extensions" 3>&2 2>&1 1>&3)
         case $CHOICE in
         "1)") end_of_script;;
         "2)") install_dependencies;;
@@ -640,6 +689,7 @@ menu_whiptail() {
         "11)") choice_IDE;;
         "12)") install_vim;;
         "13)") install_git;;
+        "14)") extension_vscode;;
         esac
     done
     exit

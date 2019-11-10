@@ -101,6 +101,8 @@ This script has been coded to facilitate the installation of the InstallFest for
 - ☑ Header
 - ☑ Footer
 - ☑ Install Visual Code
+- ☑ Install Extension of Visual Code
+- ◻ Message when you exit
 - ◻ Install All
 - ◻ Check if all is ok
 - ◻ Repair
