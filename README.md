@@ -34,8 +34,6 @@
     <img src="https://img.shields.io/badge/PostegreSQL-9.5-31648C.svg?style=flat-square"
       alt="Ruby Version" />
   </a>
-
-
 </p>
 
 <p align="center">
@@ -55,6 +53,12 @@
   </div>
 
 </p>
+<div align="center">
+  <a href="https://www.buymeacoffee.com/LinkPhoenix">
+    <img src="https://img.shields.io/badge/Buy%20Me%20Coffee-DONATE-FF813F"
+      alt="Commits" />
+  </a>
+</div>
 
 This script has been coded to facilitate the installation of the InstallFest for the training The Hacking Project in France, it will allow you to install all that you need to begin the training.
 
