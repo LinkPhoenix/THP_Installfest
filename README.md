@@ -66,6 +66,16 @@ This script has been coded to facilitate the installation of the InstallFest for
   <img alt="THP InstallFest launching" src="https://user-images.githubusercontent.com/33618968/68536089-911a3380-034d-11ea-9a97-ce2b9c8c6dc2.gif" width="980px">
 </p>
 
+# Operating system tested
+
+|     OS Name     |      Version      |   Code name   |      Validate      |
+|     :-----:     |    -----------    | ------------- |       -------      |
+|  Elementary OS  |         5.0       |      JUNO     | :heavy_check_mark: |
+|     Ubuntu      |     18.04 LTS     | Bionic Beaver |         :x:        |
+|    Linux Mint   |       19 LTS      |      Tara     |         :x:        |
+|     Xubuntu     |     18.04 LTS     | Bionic Beaver |         :x:        |
+|     Lubuntu     |     18.04 LTS     | Bionic Beaver |         :x:        |
+
 # Getting Started
 
 ### Prerequisites
@@ -99,29 +109,36 @@ This script has been coded to facilitate the installation of the InstallFest for
 
 ### To-do features
 
-- ☑ Do not launch if the user is not on Linux 
+#### Important
+
+- ☑ Do not launch if the user is not on Linux
 - ☑ Beautiful menu 
 - ☑ Print all command
 - ☑ Header
 - ☑ Footer
-- ☑ Install Visual Code
-- ☑ Install Extension of Visual Code
-- ◻ Message when you exit
-- ◻ Install All
-- ◻ Check if all is ok
-- ◻ Repair
-- ☑ Better Warning
-- ◻ Logs
-- ☑ Install Oh My ZSH
 - ☑ Ask which IDE you want (Atom, VsCode, Sublime...)
-- ☑ Choice for install Git
-- ☑ Install VIM
+- ☑ Install Visual Code
+- ☑ Visual code : Install extensions for Ruby environnement
+- ◻ Install All
+- ◻ Check if all is ok (RVM, Ruby, Rails, Gems, BDD)
+- ◻ Repair each Installation
+- ☑ Better Warning
+- ☑ Install Oh My ZSH
+- ◻ Oh My ZSH : Enable Plugins for Ruby environnement
 - ☑ More information about THP
-- ◻ Checking for existing SSH keys
 - ◻ Install TERMINATOR
-- ◻ Config Alias and/or config Plugins OH MY ZSH
-- ◻ Send notify-send at start
-- ◻ Full reinstall all 
+- ◻ Full reinstall all
+- ◻ Full uninstall Ruby 6.0 (Fix error for rails new)
+
+#### Others
+- ◻ Message when you exit
+- ◻ Logs
+- ☑ Send notify-send at start
+- ☑ Install Git
+- ◻ GIT : Global Configuration
+- ◻ GIT : Checking for existing SSH keys
+- ☑ Install VIM
+- ◻ VIM : customization .vimrc
 
 ## Donate
 
