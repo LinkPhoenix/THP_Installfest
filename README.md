@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://www.thehackingproject.org/">
-    <img alt="spaceship →~ prompt" src="https://user-images.githubusercontent.com/33618968/68535560-68417080-0344-11ea-9874-bfe991c361cf.jpg" width="400">
+    <img alt="The Hacking Project" src="https://user-images.githubusercontent.com/33618968/68535560-68417080-0344-11ea-9874-bfe991c361cf.jpg" width="400">
   </a>
   <br>:fr: The Hacking Project :fr:<br>
 </h1>
