@@ -72,9 +72,13 @@ This script has been coded to facilitate the installation of the InstallFest for
 |     :-----:     |    -----------    | ------------- |       -------      |
 |  Elementary OS  |         5.0       |      JUNO     | :heavy_check_mark: |
 |     Ubuntu      |     18.04 LTS     | Bionic Beaver | :heavy_check_mark: |
+|     Ubuntu      |       19.10       |  Eoan Ermine  | :x: |
 |    Linux Mint   |      19.2 LTS     |      Tara     | :heavy_check_mark: |
-|     Xubuntu     |     18.04 LTS     | Bionic Beaver |         :x:        |
+|     Xubuntu     |     18.04 LTS     | Bionic Beaver | :heavy_check_mark: |
 |     Lubuntu     |     18.04 LTS     | Bionic Beaver | :heavy_check_mark: |
+|     Debian      |     18.04 LTS     | Bionic Beaver | :x: |
+|     ZorinOS     |     18.04 LTS     | Bionic Beaver | :x: |
+
 
 # Getting Started
 
