@@ -660,6 +660,9 @@ end_of_script() {
 menu_whiptail() {
     while [ 1 ]; do
     eval `resize`
+
+    if hash resize 2>/dev/null; then
+        echo "good"
            CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
                 "1)" "Exit" \
                 "2)" "Depencies installation" \
@@ -675,6 +678,23 @@ menu_whiptail() {
                 "12)" "Install VIM" \
                 "13)" "Install GIT" \
                 "14)" "Install Visual Code Extensions" 3>&2 2>&1 1>&3)
+    else
+        CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear \
+                "1)" "Exit" \
+                "2)" "Depencies installation" \
+                "3)" "RVM installation" \
+                "4)" "Ruby version 2.5.1 installation" \
+                "5)" "Rails version 2.5.3 installation" \
+                "6)" "Check Ruby and Rails versions" \
+                "7)" "Heroku Installation" \
+                "8)" "Gem Installation" \
+                "9)" "PG's gem installation" \
+                "10)" "Install Oh My ZSH" \
+                "11)" "Choice my IDE" \
+                "12)" "Install VIM" \
+                "13)" "Install GIT" \
+                "14)" "Install Visual Code Extensions" 3>&2 2>&1 1>&3)
+    fi
         case $CHOICE in
         "1)") end_of_script;;
         "2)") install_dependencies;;
