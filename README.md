@@ -139,6 +139,8 @@ This script has been coded to facilitate the installation of the InstallFest for
 - ◻ GIT : Checking for existing SSH keys
 - ☑ Install VIM
 - ◻ VIM : customization .vimrc
+- ◻ Better Yes No Question for Gem Install
+- ◻ Warning of the long instalation of the GEM SINATRA
 
 ## Donate
 
