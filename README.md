@@ -76,8 +76,9 @@ This script has been coded to facilitate the installation of the InstallFest for
 |    Linux Mint   |      19.2 LTS     |      Tara     | :heavy_check_mark: |
 |     Xubuntu     |     18.04 LTS     | Bionic Beaver | :heavy_check_mark: |
 |     Lubuntu     |     18.04 LTS     | Bionic Beaver | :heavy_check_mark: |
-|     Debian      |     18.04 LTS     | Bionic Beaver | :x: |
-|     ZorinOS     |     18.04 LTS     | Bionic Beaver | :x: |
+|     Debian      |       10.2        |     Buster    | :x: |
+|     ZorinOS     |      15 Core      |               | :x: |
+|      Solus      |        4.0        |   Fortitude   | :x: |
 
 
 # Getting Started
