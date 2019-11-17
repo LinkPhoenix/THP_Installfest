@@ -136,6 +136,18 @@ detect_text() {
     echo ""
 }
 
+information() {
+    echo ""
+    echo "${RED}${BOLD}#######################################################${RESET}"
+    echo "${RED}${BOLD}${BG_BLACK}                                                       ${RESET}"
+    echo "${RED}${BOLD}  $1 ${RESET}"
+    echo "${RED}${BOLD}  $2 ${RESET}"
+    echo "${RED}${BOLD}${BG_BLACK}                                                       ${RESET}"
+    echo "${RED}${BOLD}#######################################################${RESET}"
+    echo ""
+    press_any_key_to_continue
+}
+
 install_dependencies() {
     header "Dependencies installation for Ruby and RVM"
 
@@ -432,6 +444,8 @@ install_oh_my_zsh() {
         sudo apt install zsh
     fi
 
+information "After installing OH MY ZSH you will have to leave" "the SHELL by typing EXIT to continue the script"
+
     if hash curl 2>/dev/null; then
         detect_text "CURL has been detected on your system"
         echo "${YELLOW}I will install OH MY ZSH with it${RESET}"
@@ -660,8 +674,6 @@ end_of_script() {
     clear
     exit
 }
-
-
 
 menu_whiptail() {
     while [ 1 ]; do
