@@ -583,6 +583,8 @@ Install_sublime_text() {
 }
 
 install_git() {
+    header "INSTALL GIT" 
+
     if hash git 2>/dev/null; then
         detect_text "GIT is already installed"
         press_any_key_to_continue
