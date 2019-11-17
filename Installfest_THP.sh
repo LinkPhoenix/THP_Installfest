@@ -590,7 +590,7 @@ install_git() {
 choice_IDE() {
     if hash resize 2>/dev/null; then
         eval `resize`
-`       CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
+       CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
             "1)" "Visual Code" \
             "2)" "Atom" \
             "3)" "Sublime Text" 3>&2 2>&1 1>&3)
