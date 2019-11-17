@@ -339,17 +339,15 @@ install_gem_pg() {
         if [[ $ID == ubuntu ]]; then
             read _ UBUNTU_VERSION_NAME <<<"$VERSION"
             echo "Running Ubuntu $UBUNTU_VERSION_NAME"
-            launching_command 'sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"'
+            launching_command 'sudo sh -c "echo deb http://apt.postgresql.org/pub/repos/apt/ '$UBUNTU_CODENAME'-pgdg main" > /etc/apt/sources.list.d/pgdg.list"'
             press_any_key_to_continue
             sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
-            press_any_key_to_continue
         else
             echo "Not running an Ubuntu distribution. ID=$ID, VERSION=$VERSION"
             echo "Your system is based on Ubuntu $UBUNTU_CODENAME"
-            launching_command "sudo sh -c echo deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main > /etc/apt/sources.list.d/pgdg.list"
+            launching_command 'sudo sh -c "echo deb http://apt.postgresql.org/pub/repos/apt/ '$UBUNTU_CODENAME'-pgdg main" > /etc/apt/sources.list.d/pgdg.list"'
             press_any_key_to_continue
             sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
-            press_any_key_to_continue
         fi
     launching_command "wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -"
     wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
