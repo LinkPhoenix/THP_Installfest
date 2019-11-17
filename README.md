@@ -71,7 +71,7 @@ This script has been coded to facilitate the installation of the InstallFest for
 |     OS Name     |      Version      |   Code name   |      Validate      |
 |     :-----:     |    -----------    | ------------- |       -------      |
 |  Elementary OS  |         5.0       |      JUNO     | :heavy_check_mark: |
-|     Ubuntu      |     18.04 LTS     | Bionic Beaver |         :x:        |
+|     Ubuntu      |     18.04 LTS     | Bionic Beaver | :heavy_check_mark: |
 |    Linux Mint   |       19 LTS      |      Tara     |         :x:        |
 |     Xubuntu     |     18.04 LTS     | Bionic Beaver |         :x:        |
 |     Lubuntu     |     18.04 LTS     | Bionic Beaver |         :x:        |
