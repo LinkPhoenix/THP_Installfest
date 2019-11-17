@@ -74,7 +74,7 @@ This script has been coded to facilitate the installation of the InstallFest for
 |     Ubuntu      |     18.04 LTS     | Bionic Beaver | :heavy_check_mark: |
 |    Linux Mint   |      19.2 LTS     |      Tara     | :heavy_check_mark: |
 |     Xubuntu     |     18.04 LTS     | Bionic Beaver |         :x:        |
-|     Lubuntu     |     18.04 LTS     | Bionic Beaver |         :x:        |
+|     Lubuntu     |     18.04 LTS     | Bionic Beaver | :heavy_check_mark: |
 
 # Getting Started
 
