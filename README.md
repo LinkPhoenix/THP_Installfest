@@ -138,7 +138,7 @@ This script has been coded to facilitate the installation of the InstallFest for
 - ◻ Logs
 - ☑ Send notify-send at start
 - ☑ Install Git
-- ◻ GIT : Global Configuration
+- ☑ GIT : Global Configuration
 - ◻ GIT : Checking for existing SSH keys
 - ☑ Install VIM
 - ◻ VIM : customization .vimrc

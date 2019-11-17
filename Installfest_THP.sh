@@ -614,16 +614,18 @@ config_git() {
         echo "${YELLOW}################################################${RESET}"
         echo "${YELLOW}If you want to leave the script press [CTRL + C]${RESET}"
         echo "${YELLOW}################################################${RESET}"
+        echo ""
         press_any_key_to_continue
     fi
     echo "${YELLOW}Type in your first and last name or just pseudo (no accent or special characters - e.g. 'ç'): ${YELLOW}"
     read full_name
-
+    echo ""
     echo "${YELLOW}Type in your email address, the one used for your GitHub account: ${YELLOW}"
     read email
 
     launching_command "git config --global user.email $email"
     git config --global user.email $email
+    echo ""
     launching_command "git config --global user.email $full_name"
     git config --global user.name $full_name
 
