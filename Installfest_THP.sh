@@ -629,11 +629,36 @@ config_git() {
     launching_command "git config --global user.email $full_name"
     git config --global user.name $full_name
 
-    echo "${YELLOW}This is your new config${YELLOW}"
+    echo "${YELLOW}This is your new config${RESET}"
     launching_command "cat $HOME/.gitconfig"
     cat $HOME/.gitconfig
 
     footer "GIT CONFIG GLOBAL END"
+
+    press_any_key_to_continue
+}
+
+checking_for_existing_ssh_keys() {
+    header "Checking for existing SSH keys"
+
+    SSH_KEY_FOLDER="$HOME/.ssh"
+    if [[ -f "$SSH_KEY_FOLDER/id_rsa.pub" ]]; then
+        detect_text "You have already RSA KEY"
+        echo "${YELLOW}Here is your KEY :${RESET}"
+        cat $SSH_KEY_FOLDER/id_rsa.pub
+    elif [[ -f "$SSH_KEY_FOLDER/id_ecdsa.pub" ]]; then
+        detect_text "You have already ECDSA KEY"
+        echo "${YELLOW}Here is your KEY :${RESET}"
+        cat $SSH_KEY_FOLDER/id_ecdsa.pub
+    elif [[ -f "$SSH_KEY_FOLDER/ed25519.pub" ]]; then
+        detect_text "You have already ED25519 KEY"
+        echo "${YELLOW}Here is your KEY :${RESET}"
+        cat $SSH_KEY_FOLDER/id_ed25519.pub
+    else
+        warning_text "You do not have key"
+    fi
+
+    footer "END OF DETECTION KEY"
 
     press_any_key_to_continue
 }
@@ -773,7 +798,8 @@ menu_whiptail() {
                 "13)" "Install GIT" \
                 "14)" "Install Visual Code Extensions" \
                 "15)" "Install Terminator" \
-                "16)" "GIT : Config global setting" 3>&2 2>&1 1>&3)
+                "16)" "GIT : Config global setting" \
+                "17)" "Checking for existing SSH keys" 3>&2 2>&1 1>&3)
         else
             CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear 25 78 16 \
                 "1)" "Exit" \
@@ -791,7 +817,8 @@ menu_whiptail() {
                 "13)" "Install GIT" \
                 "14)" "Install Visual Code Extensions" \
                 "15)" "Install Terminator" \
-                "16)" "GIT : Config global setting" 3>&2 2>&1 1>&3)
+                "16)" "GIT : Config global setting" \
+                "17)" "Checking for existing SSH keys" 3>&2 2>&1 1>&3)
         fi
         case $CHOICE in
         "1)") end_of_script ;;
@@ -810,6 +837,7 @@ menu_whiptail() {
         "14)") extension_vscode ;;
         "15)") install_terminator ;;
         "16)") config_git ;;
+        "17)") checking_for_existing_ssh_keys ;;
         esac
     done
     exit
