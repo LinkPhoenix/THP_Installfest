@@ -134,7 +134,7 @@ This script has been coded to facilitate the installation of the InstallFest for
 
 #### Others
 - ◻ Full uninstall Ruby 6.0 (Fix error for rails new)
-- ◻ Message when you exit
+- ☑ Message when you exit
 - ◻ Logs
 - ☑ Send notify-send at start
 - ☑ Install Git

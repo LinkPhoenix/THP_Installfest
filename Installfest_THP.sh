@@ -690,7 +690,29 @@ extension_vscode() {
     code --install-extension thadeu.vscode-run-rspec-file
 }
 
+message_exit() {
+    echo ""
+    echo ""
+    echo "${YELLOW}#######################################################${RESET}"
+    echo ""
+    echo "${RED}${BOLD}Merci d'avoir utilisé se script${RESET}"
+    echo "${RED}${BOLD}Si vous aimez mon travail vous pouvez${RESET}"
+    echo "${RED}${BOLD}m'offrir un caffé via le lien suivant${RESET}"
+    echo "${YELLOW}${BOLD}https://www.buymeacoffee.com/LinkPhoenix${RESET}"
+    echo "${RED}${BOLD}Bonne formation${RESET}"
+    echo ""
+    echo "_______________________________________________________"
+    echo ""
+    echo "${RED}${BOLD}Pour plus d'information sur${RESET} ${REVERSE}${BOLD}The Hacking Project${RESET}${RED}${BOLD} :${RESET}"
+    echo "${YELLOW}${BOLD}https://www.thehackingproject.org/fr/about${RESET}"
+    echo ""
+    echo "${YELLOW}#######################################################${RESET}"
+}
+
 end_of_script() {
+    clear
+    message_exit
+    sleep 7
     clear
     exit
 }
