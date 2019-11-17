@@ -678,7 +678,7 @@ menu_whiptail() {
                 "13)" "Install GIT" \
                 "14)" "Install Visual Code Extensions" 3>&2 2>&1 1>&3)
     else
-        CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear \
+        CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear 25 78 16 \
                 "1)" "Exit" \
                 "2)" "Depencies installation" \
                 "3)" "RVM installation" \
