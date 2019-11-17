@@ -603,6 +603,39 @@ install_git() {
     press_any_key_to_continue
 }
 
+config_git() {
+    header "CONFIGURATION GIT GLOBAL"
+
+    GIT_CONFIG_FILE="$HOME/.gitconfig"
+    if [[ -f "$GIT_CONFIG_FILE" ]]; then
+        information "A configuration is already configured," "be sure to want to redo a configuration"
+        echo "${YELLOW}Here is the current configuration :${RESET}"
+        cat $HOME/.gitconfig
+        echo "${YELLOW}################################################${RESET}"
+        echo "${YELLOW}If you want to leave the script press [CTRL + C]${RESET}"
+        echo "${YELLOW}################################################${RESET}"
+        press_any_key_to_continue
+    fi
+    echo "${YELLOW}Type in your first and last name or just pseudo (no accent or special characters - e.g. 'ç'): ${YELLOW}"
+    read full_name
+
+    echo "${YELLOW}Type in your email address, the one used for your GitHub account: ${YELLOW}"
+    read email
+
+    launching_command "git config --global user.email $email"
+    git config --global user.email $email
+    launching_command "git config --global user.email $full_name"
+    git config --global user.name $full_name
+
+    echo "${YELLOW}This is your new config${YELLOW}"
+    launching_command "cat $HOME/.gitconfig"
+    cat $HOME/.gitconfig
+
+    footer "GIT CONFIG GLOBAL END"
+
+    press_any_key_to_continue
+}
+
 install_terminator() {
     header "TERMINATOR INSTALL"
 
@@ -737,7 +770,8 @@ menu_whiptail() {
                 "12)" "Install VIM" \
                 "13)" "Install GIT" \
                 "14)" "Install Visual Code Extensions" \
-                "15)" "Install Terminator" 3>&2 2>&1 1>&3)
+                "15)" "Install Terminator" \
+                "16)" "GIT : Config global setting" 3>&2 2>&1 1>&3)
         else
             CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear 25 78 16 \
                 "1)" "Exit" \
@@ -754,7 +788,8 @@ menu_whiptail() {
                 "12)" "Install VIM" \
                 "13)" "Install GIT" \
                 "14)" "Install Visual Code Extensions" \
-                "15)" "Install Terminator" 3>&2 2>&1 1>&3)
+                "15)" "Install Terminator" \
+                "16)" "GIT : Config global setting" 3>&2 2>&1 1>&3)
         fi
         case $CHOICE in
         "1)") end_of_script ;;
@@ -772,6 +807,7 @@ menu_whiptail() {
         "13)") install_git ;;
         "14)") extension_vscode ;;
         "15)") install_terminator ;;
+        "16)") config_git ;;
         esac
     done
     exit
