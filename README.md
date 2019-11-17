@@ -72,7 +72,7 @@ This script has been coded to facilitate the installation of the InstallFest for
 |     :-----:     |    -----------    | ------------- |       -------      |
 |  Elementary OS  |         5.0       |      JUNO     | :heavy_check_mark: |
 |     Ubuntu      |     18.04 LTS     | Bionic Beaver | :heavy_check_mark: |
-|    Linux Mint   |       19 LTS      |      Tara     |         :x:        |
+|    Linux Mint   |      19.2 LTS     |      Tara     | :heavy_check_mark: |
 |     Xubuntu     |     18.04 LTS     | Bionic Beaver |         :x:        |
 |     Lubuntu     |     18.04 LTS     | Bionic Beaver |         :x:        |
 
@@ -119,13 +119,13 @@ This script has been coded to facilitate the installation of the InstallFest for
 - ☑ Ask which IDE you want (Atom, VsCode, Sublime...)
 - ☑ Install Visual Code
 - ☑ Visual code : Install extensions for Ruby environnement
-- ◻ Install All
-- ◻ Check if all is ok (RVM, Ruby, Rails, Gems, BDD)
-- ◻ Repair each Installation
+- ☑ Check if Ruby and Rails is ok
 - ☑ Better Warning
 - ☑ Install Oh My ZSH
-- ◻ Oh My ZSH : Enable Plugins for Ruby environnement
 - ☑ More information about THP
+- ◻ Install All
+- ◻ Repair each Installation
+- ◻ Oh My ZSH : Enable Plugins for Ruby environnement
 - ◻ Install TERMINATOR
 - ◻ Full reinstall all
 - ◻ Full uninstall Ruby 6.0 (Fix error for rails new)
@@ -141,6 +141,7 @@ This script has been coded to facilitate the installation of the InstallFest for
 - ◻ VIM : customization .vimrc
 - ◻ Better Yes No Question for Gem Install
 - ◻ Warning of the long instalation of the GEM SINATRA
+- ◻ Check the BDD
 
 ## Donate
 
