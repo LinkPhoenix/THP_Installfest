@@ -659,10 +659,9 @@ end_of_script() {
 
 menu_whiptail() {
     while [ 1 ]; do
-    eval `resize`
 
     if hash resize 2>/dev/null; then
-        echo "good"
+        eval `resize`
            CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
                 "1)" "Exit" \
                 "2)" "Depencies installation" \
