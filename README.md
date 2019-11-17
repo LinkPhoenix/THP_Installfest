@@ -128,14 +128,12 @@ This script has been coded to facilitate the installation of the InstallFest for
 - ☑ Better Warning
 - ☑ Install Oh My ZSH
 - ☑ More information about THP
-- ◻ Install All
-- ◻ Repair each Installation
 - ◻ Oh My ZSH : Enable Plugins for Ruby environnement
-- ◻ Install TERMINATOR
+- ☑ Install TERMINATOR
 - ◻ Full reinstall all
-- ◻ Full uninstall Ruby 6.0 (Fix error for rails new)
 
 #### Others
+- ◻ Full uninstall Ruby 6.0 (Fix error for rails new)
 - ◻ Message when you exit
 - ◻ Logs
 - ☑ Send notify-send at start

@@ -192,7 +192,7 @@ install_RVM() {
     echo "${YELLOW}Install RVM with CURL${RESET}"
     launching_command "curl -L get.rvm.io | bash -s stable"
     curl -L get.rvm.io | bash -s stable
-    
+
     footer "RVM INSTALLATION END"
 
     press_any_key_to_continue
@@ -204,16 +204,16 @@ check_rvm_as_function() {
     # Loading RVM *as a function* is mandatory
     # so that we can use 'rvm use <specific version>'
     echo "${YELLOW}I will try to add RVM as Source${RESET}"
-    if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
-      # First try to load from a user install
-      source "$HOME/.rvm/scripts/rvm"
-      echo "${GREEN}using user install $HOME/.rvm/scripts/rvm${RESET}"
-    elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
-      # Then try to load from a root install
-      source "/usr/local/rvm/scripts/rvm"
-      echo "${GREEN}using root install /usr/local/rvm/scripts/rvm${RESET}"
+    if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+        # First try to load from a user install
+        source "$HOME/.rvm/scripts/rvm"
+        echo "${GREEN}using user install $HOME/.rvm/scripts/rvm${RESET}"
+    elif [[ -s "/usr/local/rvm/scripts/rvm" ]]; then
+        # Then try to load from a root install
+        source "/usr/local/rvm/scripts/rvm"
+        echo "${GREEN}using root install /usr/local/rvm/scripts/rvm${RESET}"
     else
-      echo "${RED}ERROR: An RVM installation was not found.${RESET}"
+        echo "${RED}ERROR: An RVM installation was not found.${RESET}"
     fi
 }
 
@@ -361,16 +361,16 @@ install_gem_pg() {
             press_any_key_to_continue
             sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ $UBUNTU_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
         fi
-    launching_command "wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -"
-    wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
-    launching_command "sudo apt update"
-    sudo apt update
-    launching_command "sudo apt upgrade"
-    sudo apt upgrade
-    launching_command "sudo apt install postgresql-common"
-    sudo apt install postgresql-common
-    launching_command "sudo apt install postgresql-9.5 libpq-dev"
-    sudo apt install postgresql-9.5 libpq-dev
+        launching_command "wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -"
+        wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
+        launching_command "sudo apt update"
+        sudo apt update
+        launching_command "sudo apt upgrade"
+        sudo apt upgrade
+        launching_command "sudo apt install postgresql-common"
+        sudo apt install postgresql-common
+        launching_command "sudo apt install postgresql-9.5 libpq-dev"
+        sudo apt install postgresql-9.5 libpq-dev
     else
         WARNING "Not running a distribution with /etc/os-release available
         I can't install the GEM PG with PostgreSQL"
@@ -444,7 +444,7 @@ install_oh_my_zsh() {
         sudo apt install zsh
     fi
 
-information "After installing OH MY ZSH you will have to leave" "the SHELL by typing EXIT to continue the script"
+    information "After installing OH MY ZSH you will have to leave" "the SHELL by typing EXIT to continue the script"
 
     if hash curl 2>/dev/null; then
         detect_text "CURL has been detected on your system"
@@ -508,7 +508,7 @@ Install_vscode() {
         echo "I will install it"
         press_any_key_to_continue
         launching_command "curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg"
-        curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+        curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
         launching_command "sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/"
         sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
         launching_command "sudo sh -c echo deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main > /etc/apt/sources.list.d/vscode.list"
@@ -583,7 +583,7 @@ Install_sublime_text() {
 }
 
 install_git() {
-    header "INSTALL GIT" 
+    header "INSTALL GIT"
 
     if hash git 2>/dev/null; then
         detect_text "GIT is already installed"
@@ -603,24 +603,42 @@ install_git() {
     press_any_key_to_continue
 }
 
+install_terminator() {
+    header "TERMINATOR INSTALL"
+
+    if hash terminator 2>/dev/null; then
+        detect_text "TERMINATOR is already installed"
+        press_any_key_to_continue
+    else
+        warning_text "TERMINATOR has not detected on your system"
+        echo "I will install it"
+        launching_command "sudo apt install terminator"
+        sudo apt install terminator
+    fi
+
+    footer "TERMINATOR INSTALLATION END"
+
+    press_any_key_to_continue
+}
+
 choice_IDE() {
     if hash resize 2>/dev/null; then
-        eval `resize`
-       CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
+        eval $(resize)
+        CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(($COLUMNS - 75)) $(($LINES - 8)) \
             "1)" "Visual Code" \
             "2)" "Atom" \
             "3)" "Sublime Text" 3>&2 2>&1 1>&3)
     else
         CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear 15 45 5 \
-        "1)" "Visual Code" \
-        "2)" "Atom" \
-        "3)" "Sublime Text" 3>&2 2>&1 1>&3)
+            "1)" "Visual Code" \
+            "2)" "Atom" \
+            "3)" "Sublime Text" 3>&2 2>&1 1>&3)
     fi
 
     case $CHOICE in
-        "1)") Install_vscode;;
-        "2)") Install_atom;;
-        "3)") Install_sublime_text;;
+    "1)") Install_vscode ;;
+    "2)") Install_atom ;;
+    "3)") Install_sublime_text ;;
     esac
 }
 
@@ -680,9 +698,9 @@ end_of_script() {
 menu_whiptail() {
     while [ 1 ]; do
 
-    if hash resize 2>/dev/null; then
-        eval `resize`
-           CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(( $COLUMNS - 75 )) $(( $LINES - 8 )) \
+        if hash resize 2>/dev/null; then
+            eval $(resize)
+            CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(($COLUMNS - 75)) $(($LINES - 8)) \
                 "1)" "Exit" \
                 "2)" "Depencies installation" \
                 "3)" "RVM installation" \
@@ -696,9 +714,10 @@ menu_whiptail() {
                 "11)" "Choice my IDE" \
                 "12)" "Install VIM" \
                 "13)" "Install GIT" \
-                "14)" "Install Visual Code Extensions" 3>&2 2>&1 1>&3)
-    else
-        CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear 25 78 16 \
+                "14)" "Install Visual Code Extensions" \
+                "15)" "Install Terminator" 3>&2 2>&1 1>&3)
+        else
+            CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear 25 78 16 \
                 "1)" "Exit" \
                 "2)" "Depencies installation" \
                 "3)" "RVM installation" \
@@ -712,23 +731,25 @@ menu_whiptail() {
                 "11)" "Choice my IDE" \
                 "12)" "Install VIM" \
                 "13)" "Install GIT" \
-                "14)" "Install Visual Code Extensions" 3>&2 2>&1 1>&3)
-    fi
+                "14)" "Install Visual Code Extensions" \
+                "15)" "Install Terminator" 3>&2 2>&1 1>&3)
+        fi
         case $CHOICE in
-        "1)") end_of_script;;
-        "2)") install_dependencies;;
-        "3)") install_RVM;;
-        "4)") install_Ruby;;
-        "5)") install_Rails;;
-        "6)") check_ror_version;;
-        "7)") install_Heroku;;
-        "8)") install_all_gem;;
-        "9)") install_gem_pg;;
-        "10)") install_oh_my_zsh;;
-        "11)") choice_IDE;;
-        "12)") install_vim;;
-        "13)") install_git;;
-        "14)") extension_vscode;;
+        "1)") end_of_script ;;
+        "2)") install_dependencies ;;
+        "3)") install_RVM ;;
+        "4)") install_Ruby ;;
+        "5)") install_Rails ;;
+        "6)") check_ror_version ;;
+        "7)") install_Heroku ;;
+        "8)") install_all_gem ;;
+        "9)") install_gem_pg ;;
+        "10)") install_oh_my_zsh ;;
+        "11)") choice_IDE ;;
+        "12)") install_vim ;;
+        "13)") install_git ;;
+        "14)") extension_vscode ;;
+        "15)") install_terminator ;;
         esac
     done
     exit
@@ -753,7 +774,7 @@ main() {
 
     notify-send 'InstallFest' 'His script was written by LinkPhoenix'
 
-header="
+    header="
   _______ _            _    _            _    _               _____           _           _   
  |__   __| |          | |  | |          | |  (_)             |  __ \         (_)         | |  
     | |  | |__   ___  | |__| | __ _  ___| | ___ _ __   __ _  | |__) | __ ___  _  ___  ___| |_ 
@@ -770,14 +791,14 @@ header="
  |_____|_| |_|___/\__\__,_|_|_|_| \___||___/\__|                                              
                                                                                               
 "
-i=0
-while [ $i -lt ${#header} ]; do
-    sleep 0.0000001
-    echo -ne "${GREEN}${BOLD}${header:$i:1}${RESET}" | tr --delete "%"
-    ((i++))
-done
+    i=0
+    while [ $i -lt ${#header} ]; do
+        sleep 0.0000001
+        echo -ne "${GREEN}${BOLD}${header:$i:1}${RESET}" | tr --delete "%"
+        ((i++))
+    done
 
-info_script="The Hacking Project is a Peer-Learning training based in FRANCE
+    info_script="The Hacking Project is a Peer-Learning training based in FRANCE
 
 Created by Félix Gaudé (CEO/Président) and Charles Dacquay (CMO/Directeur Général)
 more information at https://www.thehackingproject.org
@@ -792,12 +813,12 @@ URL Repository      https://github.com/LinkPhoenix/THP_Installfest
 
 "
 
-i=0
-while [ $i -lt ${#info_script} ]; do
-    sleep 0.001
-    echo -ne "${YELLOW}${BOLD}${info_script:$i:1}${RESET}" | tr --delete "%"
-    ((i++))
-done
+    i=0
+    while [ $i -lt ${#info_script} ]; do
+        sleep 0.001
+        echo -ne "${YELLOW}${BOLD}${info_script:$i:1}${RESET}" | tr --delete "%"
+        ((i++))
+    done
 
     press_any_key_to_continue
     warning
