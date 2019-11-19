@@ -371,6 +371,8 @@ install_gem_pg() {
         sudo apt install postgresql-common
         launching_command "sudo apt install postgresql-9.5 libpq-dev"
         sudo apt install postgresql-9.5 libpq-dev
+        launching_command "sudo -u postgres createuser --interactive"
+        sudo -u postgres createuser --interactive
     else
         WARNING "Not running a distribution with /etc/os-release available
         I can't install the GEM PG with PostgreSQL"
