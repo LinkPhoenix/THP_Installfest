@@ -779,6 +779,85 @@ end_of_script() {
     exit
 }
 
+add_full_alias() {
+    echo -e "
+# SYSTEM ALIAS
+alias cls='clear'									# Clear the terminal
+alias c='clear'										# Clear the terminal
+alias h='history'									# Print bash command history
+alias ll='ls -l' 									# List files in a list
+alias la='ls -al'									# List files in a list with hidden files
+# GIT ALIAS
+alias gitalias='alias | grep git'					# Show all alias for git (if you have OH MY ZSH you have lots of other aliases)
+alias gs='git status'								# Show the working tree status
+alias gcl='git clone'								# Clone a repository into a new directory
+alias gpush='git push'								# Update remote refs along with associated objects
+alias gpull='git pull'								# Fetch from and integrate with another repository or a local branch
+alias ga='git add'									# Add file contents to the index
+alias gcm='git commit -m'							# Record changes to the repository
+alias gco='git checkout'							# Switch branches or restore working tree files
+alias gbr='git branch'								# List, create, or delete branches
+alias glog='git log'								# Show commit logs
+alias greset='git reset'							# Reset current HEAD to the specified state
+# BUNDLE ALIAS
+alias bundlealias='alias | grep bundle'				# Show all alias for bundle
+alias bi='bundle install'							# Install the current environment to the system
+alias bl='bundle list'								# List all gem in GEMFILE and version
+alias bu='bundle update'							# Update the current environment (update gem)
+alias ba='bundle add'								# Command for add multiple gem in gemfile and launch a bundle update
+# HEROKU ALIAS
+alias herokualias='alias | grep heroku'				# Show all alias for Heroku
+alias hrdbs='heroku run rake db:seed'
+alias hrdbm='heroku run rails db:migrate'
+alias hc='heroku create'
+alias hrrc='heroku run rails console'
+alias hrbi='heroku run bundle install'
+alias hrupdate='heroku update'						# Update the Heroku CLI
+alias hrpsql='heroku psql'							# Open a psql shell to the database
+alias hrlogs='heroku logs'							# Display recent log output
+alias hrlog='heroku logs'							# Display recent log output
+# APT ALIAS
+alias aptalias='alias | grep apt'					# show all alias for apt
+alias update='sudo apt update -y'					# Update list of available packages
+alias upgrade='sudo apt upgrade -y'					# Upgrade the system by installing/upgrading packages
+alias fullupgrade='sudo apt full-upgrade -y'		# Upgrade the system by removing/installing/upgrading packages
+alias dist-upgrade='sudo apt dist-upgrade -y'		# Upgrade your distributtion system with sudo and ask yes
+alias autoremove='sudo apt autoremove'				# Remove automatically all unused packages
+# RAILS ALIAS
+alias railsalias='alias | grep rails'				# Show all alias for rails
+### RAILS CREATION
+alias rn='rails _5.2.3_ new'						# Create rails app with version 5.2.3 of RAILS
+alias rnd='rails _5.2.3_ new --database=postgresql'	# Create rails app with version 5.2.3 of RAILS and postgresql
+### RAILS OTHER
+alias rc='rails console'
+alias rd='rails destroy'
+alias rp='rails plugin'
+alias ru='rails runner'
+alias rs='rails server'
+alias rsd='rails server --debugger'
+alias rr='rails routes'
+### RAILS GENERATE
+alias rg='rails generate'
+alias rgm='rails generate migration'
+alias rgm='rails generate model'
+alias rgc='rails generate controller'
+### RAILS DATABASE
+alias rdb='rails dbconsole'							# Database console in the database of your Rails APP
+alias rdbd='rails db:drop'
+alias rdbc='rails db:create'
+alias rdbs='rails db:seed'
+alias rdbm='rails db:migrate'
+alias rdbms='rails db:migrate status'
+alias rdbr='rails db:rollback'
+alias rdbs='rails db:seed'
+#VISUAL CODE ALIAS
+alias vsc='code .'									# Open the current folder in VS code
+#OTHERS ALIAS
+alias vi='vim'
+alias svim='sudo vim'								# Launch Vim with sudo
+alias edit='vim'" >> ~/.zshrc
+}
+
 menu_whiptail() {
     while [ 1 ]; do
 
