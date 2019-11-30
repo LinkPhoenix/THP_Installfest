@@ -327,7 +327,7 @@ install_all_gem() {
     press_any_key_to_continue
 
     gem_array=(rspec rubocop pry dotenv twitter nokogiri launchy watir selenium-webdriver json colorize sinatra shotgun csv rack sqlite3 faker)
-    echo "Here is the list of all gems that ${REVERSE}${BOLD}The Hacking Project offers${RESET}"
+    echo "Here is the list of all gems that ${REVERSE}${BOLD}The Hacking Project${RESET} offers"
     echo "${YELLOW}###### List of all gem for The Hacking Project${RESET}"
     echo "${BG_BLACK}${ITALIC}==>${gem_array[*]} ${RESET}"
     echo ""
