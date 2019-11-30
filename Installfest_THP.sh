@@ -705,51 +705,57 @@ choice_IDE() {
 }
 
 extension_vscode() {
-    code --install-extension formulahendry.auto-close-tag
-    code --install-extension formulahendry.auto-rename-tag
-    code --install-extension aaron-bond.better-comments
-    code --install-extension thekalinga.bootstrap4-vscode
-    code --install-extension coenraads.bracket-pair-colorizer-2
-    code --install-extension formulahendry.code-runner
-    code --install-extension anseki.vscode-color
-    code --install-extension msjsdiag.debugger-for-chrome
-    code --install-extension firefox-devtools.vscode-firefox-debug
-    code --install-extension mikestead.dotenv
-    code --install-extension perkovec.emoji
-    code --install-extension giancarlopro.faker-snippets
-    code --install-extension donjayamanne.githistory
-    code --install-extension codezombiech.gitignore
-    code --install-extension eamodio.gitlens
-    code --install-extension ivangabriele.vscode-heroku
-    code --install-extension sidthesloth.html5-boilerplate
-    code --install-extension tht13.html-preview-vscode
-    code --install-extension abusaidm.html-snippets
-    code --install-extension xabikos.javascriptsnippets
-    code --install-extension emilast.logfilehighlighter
-    code --install-extension davidanson.vscode-markdownlint
-    code --install-extension christian-kohler.path-intellisense
-    code --install-extension esbenp.prettier-vscode
-    code --install-extension alefragnani.project-manager
-    code --install-extension bung87.rails
-    code --install-extension jemmyw.rails-fast-nav
-    code --install-extension shanehofstetter.rails-i18n
-    code --install-extension shanehofstetter.rails-open-partial
-    code --install-extension aki77.rails-routes
-    code --install-extension noku.rails-run-spec-vscode
-    code --install-extension vense.rails-snippets
-    code --install-extension asux.rspec-focus
-    code --install-extension karunamurti.rspec-snippets
-    code --install-extension rebornix.ruby
-    code --install-extension hridoy.rails-snippets
-    code --install-extension kosai106.ruby-syntax-replacer
-    code --install-extension misogi.ruby-rubocop
-    code --install-extension miguel-savignano.ruby-symbols
-    code --install-extension vortizhe.simple-ruby-erb
-    code --install-extension alexcvzz.vscode-sqlite
-    code --install-extension xshrim.txt-syntax
-    code --install-extension bung87.vscode-gemfile
-    code --install-extension vscode-icons-team.vscode-icons
-    code --install-extension thadeu.vscode-run-rspec-file
+	header "INSTALL EXTENSION VISUAL CODE"
+
+	code --install-extension formulahendry.auto-close-tag
+	code --install-extension formulahendry.auto-rename-tag
+	code --install-extension aaron-bond.better-comments
+	code --install-extension thekalinga.bootstrap4-vscode
+	code --install-extension coenraads.bracket-pair-colorizer-2
+	code --install-extension formulahendry.code-runner
+	code --install-extension anseki.vscode-color
+	code --install-extension msjsdiag.debugger-for-chrome
+	code --install-extension firefox-devtools.vscode-firefox-debug
+	code --install-extension mikestead.dotenv
+	code --install-extension perkovec.emoji
+	code --install-extension giancarlopro.faker-snippets
+	code --install-extension donjayamanne.githistory
+	code --install-extension codezombiech.gitignore
+	code --install-extension eamodio.gitlens
+	code --install-extension ivangabriele.vscode-heroku
+	code --install-extension sidthesloth.html5-boilerplate
+	code --install-extension tht13.html-preview-vscode
+	code --install-extension abusaidm.html-snippets
+	code --install-extension xabikos.javascriptsnippets
+	code --install-extension emilast.logfilehighlighter
+	code --install-extension davidanson.vscode-markdownlint
+	code --install-extension christian-kohler.path-intellisense
+	code --install-extension esbenp.prettier-vscode
+	code --install-extension alefragnani.project-manager
+	code --install-extension bung87.rails
+	code --install-extension jemmyw.rails-fast-nav
+	code --install-extension shanehofstetter.rails-i18n
+	code --install-extension shanehofstetter.rails-open-partial
+	code --install-extension aki77.rails-routes
+	code --install-extension noku.rails-run-spec-vscode
+	code --install-extension vense.rails-snippets
+	code --install-extension asux.rspec-focus
+	code --install-extension karunamurti.rspec-snippets
+	code --install-extension rebornix.ruby
+	code --install-extension hridoy.rails-snippets
+	code --install-extension kosai106.ruby-syntax-replacer
+	code --install-extension misogi.ruby-rubocop
+	code --install-extension miguel-savignano.ruby-symbols
+	code --install-extension vortizhe.simple-ruby-erb
+	code --install-extension alexcvzz.vscode-sqlite
+	code --install-extension xshrim.txt-syntax
+	code --install-extension bung87.vscode-gemfile
+	code --install-extension vscode-icons-team.vscode-icons
+	code --install-extension thadeu.vscode-run-rspec-file
+
+	footer "EXTENSION VISUAL CODE INSTALLATION END"
+
+	press_any_key_to_continue
 }
 
 message_exit() {
@@ -780,7 +786,21 @@ end_of_script() {
 }
 
 add_full_alias() {
-    echo -e "
+	header "INSTALLATION ALIAS"
+
+if [ -f ~/.zshrc ]; then
+	FILE_ALIAS=$HOME/.zshrc
+	detect_text "$FILE_ALIAS exist, I write alias in this file"
+
+	press_any_key_to_continue
+elif [ -f ~/.bashrc ]; then
+	FILE_ALIAS=$HOME/.bashrc
+	detect_text "$FILE_ALIAS exist, I write alias in this file"
+
+	press_any_key_to_continue
+fi
+
+ALIAS="
 # SYSTEM ALIAS
 alias cls='clear'									# Clear the terminal
 alias c='clear'										# Clear the terminal
@@ -820,7 +840,7 @@ alias hrlog='heroku logs'							# Display recent log output
 alias aptalias='alias | grep apt'					# show all alias for apt
 alias update='sudo apt update -y'					# Update list of available packages
 alias upgrade='sudo apt upgrade -y'					# Upgrade the system by installing/upgrading packages
-alias fullupgrade='sudo apt full-upgrade -y'		# Upgrade the system by removing/installing/upgrading packages
+alias full-upgrade='sudo apt full-upgrade -y'		# Upgrade the system by removing/installing/upgrading packages
 alias dist-upgrade='sudo apt dist-upgrade -y'		# Upgrade your distributtion system with sudo and ask yes
 alias autoremove='sudo apt autoremove'				# Remove automatically all unused packages
 # RAILS ALIAS
@@ -855,7 +875,22 @@ alias vsc='code .'									# Open the current folder in VS code
 #OTHERS ALIAS
 alias vi='vim'
 alias svim='sudo vim'								# Launch Vim with sudo
-alias edit='vim'" >> ~/.zshrc
+alias edit='vim'"
+
+	launching_command "echo $ALIAS >> $FILE_ALIAS"
+	sleep 2
+
+	echo "$ALIAS" >> $FILE_ALIAS
+
+	detect_text "Here is the content of $FILE_ALIAS"
+
+	press_any_key_to_continue
+
+	cat $FILE_ALIAS
+
+	footer "ALIAS INSTALATION END"
+
+	press_any_key_to_continue
 }
 
 menu_whiptail() {
@@ -863,7 +898,7 @@ menu_whiptail() {
 
         if hash resize 2>/dev/null; then
             eval $(resize)
-            CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $LINES $(($COLUMNS - 75)) $(($LINES - 8)) \
+            CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear $(($LINES - 10)) $(($COLUMNS - 50)) $(($LINES - 20)) \
                 "1)" "Exit" \
                 "2)" "Depencies installation" \
                 "3)" "RVM installation" \
@@ -880,7 +915,8 @@ menu_whiptail() {
                 "14)" "Install Visual Code Extensions" \
                 "15)" "Install Terminator" \
                 "16)" "GIT : Config global setting" \
-                "17)" "Checking for existing SSH keys" 3>&2 2>&1 1>&3)
+                "17)" "Checking for existing SSH keys" \
+				"18)" "Add Alias > GIT/Bundle/Heroku..." 3>&2 2>&1 1>&3)
         else
             CHOICE=$(whiptail --title "Installfest - The Hacking Project" --menu "By LinkPhoenix" --nocancel --notags --clear 25 78 16 \
                 "1)" "Exit" \
@@ -899,7 +935,8 @@ menu_whiptail() {
                 "14)" "Install Visual Code Extensions" \
                 "15)" "Install Terminator" \
                 "16)" "GIT : Config global setting" \
-                "17)" "Checking for existing SSH keys" 3>&2 2>&1 1>&3)
+                "17)" "Checking for existing SSH keys" \
+				"18)" "Add Alias > GIT/Bundle/Heroku..." 3>&2 2>&1 1>&3)
         fi
         case $CHOICE in
         "1)") end_of_script ;;
@@ -919,6 +956,7 @@ menu_whiptail() {
         "15)") install_terminator ;;
         "16)") config_git ;;
         "17)") checking_for_existing_ssh_keys ;;
+		"18)") add_full_alias ;;
         esac
     done
     exit
