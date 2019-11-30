@@ -838,9 +838,10 @@ alias rsd='rails server --debugger'
 alias rr='rails routes'
 ### RAILS GENERATE
 alias rg='rails generate'
-alias rgm='rails generate migration'
-alias rgm='rails generate model'
-alias rgc='rails generate controller'
+alias rgmigration='rails generate migration'
+alias rgmodel='rails generate model'
+alias rgscaffold='rails generate scaffold'
+alias rgcontroller='rails generate controller'
 ### RAILS DATABASE
 alias rdb='rails dbconsole'							# Database console in the database of your Rails APP
 alias rdbd='rails db:drop'
@@ -849,7 +850,6 @@ alias rdbs='rails db:seed'
 alias rdbm='rails db:migrate'
 alias rdbms='rails db:migrate status'
 alias rdbr='rails db:rollback'
-alias rdbs='rails db:seed'
 #VISUAL CODE ALIAS
 alias vsc='code .'									# Open the current folder in VS code
 #OTHERS ALIAS
