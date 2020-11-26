@@ -979,7 +979,9 @@ By selecting YES you accept it is conditions otherwise please select NO!" 15 100
 main() {
     setup_color
 
-    notify-send 'InstallFest' 'His script was written by LinkPhoenix'
+	if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    	notify-send 'InstallFest' 'His script was written by LinkPhoenix'
+	fi
 
     header="
   _______ _            _    _            _    _               _____           _           _   
@@ -1001,7 +1003,7 @@ main() {
     i=0
     while [ $i -lt ${#header} ]; do
         sleep 0.0000001
-        echo -ne "${GREEN}${BOLD}${header:$i:1}${RESET}" | tr --delete "%"
+        echo -ne "${GREEN}${BOLD}${header:$i:1}${RESET}" | tr -d '%'
         ((i++))
     done
 
@@ -1023,7 +1025,7 @@ URL Repository      https://github.com/LinkPhoenix/THP_Installfest
     i=0
     while [ $i -lt ${#info_script} ]; do
         sleep 0.001
-        echo -ne "${YELLOW}${BOLD}${info_script:$i:1}${RESET}" | tr --delete "%"
+        echo -ne "${YELLOW}${BOLD}${info_script:$i:1}${RESET}" | tr -d "%"
         ((i++))
     done
 
